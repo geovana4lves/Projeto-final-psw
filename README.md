@@ -1,12 +1,8 @@
 # Projeto-final-psw
 
-#######################################
-#######################################
-SISTEMA INTEGRADO DE GESTÃO ACADÊMICA PARA INSTITUIÇÕES DE ENSINO SUPERIOR
-#######################################
-#######################################
+SIGA - SISTEMA INTEGRADO DE GESTÃO ACADÊMICA PARA INSTITUIÇÕES DE ENSINO SUPERIOR
 
-O SIGA - Sistema Integrado de Gestão Acadêmica é uma plataforma digital proposta com o objetivo de auxiliar instituições de ensino superior na administração de informações acadêmicas e administrativas. O sistema é destinado ao gerenciamento de alunos, professores, cursos, disciplinas e turmas, buscando centralizar essas informações em um único ambiente.
+O Sistema Integrado de Gestão Acadêmica é uma plataforma digital proposta com o objetivo de auxiliar instituições de ensino superior na administração de informações acadêmicas e administrativas. O sistema é destinado ao gerenciamento de alunos, professores, cursos, disciplinas e turmas, buscando centralizar essas informações em um único ambiente.
 
 Atualmente, muitas instituições ainda enfrentam desafios relacionados à organização e ao gerenciamento de dados acadêmicos, como o controle de matrículas, a oferta de disciplinas e a distribuição de turmas. Nesse contexto, o sistema surge como uma solução que integra esses processos, proporcionando maior organização, confiabilidade e facilidade no acesso às informações.
 
