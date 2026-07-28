@@ -1,3 +1,17 @@
 # Projeto-final-psw
 
-O sistema 4U tem como objetivo oferecer uma solução integrada para o gerenciamento acadêmico de uma instituição de ensino superior, buscando centralizar e organizar as principais informações relacionadas aos processos administrativos e educacionais. Espera-se que a plataforma proporcione maior eficiência no controle de dados, reduza a utilização de processos manuais e facilite o acesso às informações por alunos, professores e gestores. A estrutura do sistema deverá ser baseada em um banco de dados relacional, permitindo que as informações sejam armazenadas de forma organizada e segura por meio de entidades e relacionamentos. Entre as principais funcionalidades previstas estão as operações de cadastro, consulta, atualização e exclusão (CRUD) dos registros de alunos, professores, cursos, disciplinas e notícias institucionais, além do gerenciamento das turmas ofertadas pela instituição.
+#######################################
+#######################################
+SISTEMA INTEGRADO DE GESTÃO ACADÊMICA PARA INSTITUIÇÕES DE ENSINO SUPERIOR
+#######################################
+#######################################
+
+O SIGA - Sistema Integrado de Gestão Acadêmica é uma plataforma digital proposta com o objetivo de auxiliar instituições de ensino superior na administração de informações acadêmicas e administrativas. O sistema é destinado ao gerenciamento de alunos, professores, cursos, disciplinas e turmas, buscando centralizar essas informações em um único ambiente.
+
+Atualmente, muitas instituições ainda enfrentam desafios relacionados à organização e ao gerenciamento de dados acadêmicos, como o controle de matrículas, a oferta de disciplinas e a distribuição de turmas. Nesse contexto, o sistema surge como uma solução que integra esses processos, proporcionando maior organização, confiabilidade e facilidade no acesso às informações.
+
+Entre as principais funcionalidades previstas para a plataforma estão o cadastro, consulta, atualização e exclusão (CRUD) de alunos, professores, cursos e disciplinas, além do gerenciamento das turmas ofertadas em cada semestre. Também está previsto o controle das matrículas dos estudantes nas turmas, o vínculo entre disciplinas e cursos por meio da grade curricular e a associação de professores às turmas sob sua responsabilidade.
+
+Dessa forma, espera-se que o sistema contribua para a otimização dos processos acadêmicos e administrativos, oferecendo uma ferramenta capaz de organizar as informações institucionais, reduzir inconsistências nos registros e proporcionar maior eficiência na gestão da faculdade.
+
+Palavras-chave: gestão acadêmica, sistema de informação, banco de dados, ensino superior, gerenciamento institucional.
