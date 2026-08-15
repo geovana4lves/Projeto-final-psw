@@ -1,6 +1,6 @@
 # Projeto-final-psw
 
-4U - SISTEMA INTEGRADO DE GESTÃO ACADÊMICA PARA INSTITUIÇÕES DE ENSINO SUPERIOR
+ PRA VOCÊ- SISTEMA INTEGRADO DE GESTÃO ACADÊMICA PARA INSTITUIÇÕES DE ENSINO SUPERIOR
 
 O Sistema Integrado de Gestão Acadêmica é uma plataforma digital proposta com o objetivo de auxiliar instituições de ensino superior na administração de informações acadêmicas e administrativas. O sistema é destinado ao gerenciamento de alunos, professores, cursos, disciplinas e turmas, buscando centralizar essas informações em um único ambiente.
 
