@@ -6,7 +6,7 @@ class Pessoa(User):
     cpf = models.CharField(max_length=14) 
     data_nascimento = models.DateField()
     logradouro = models.CharField(max_length=100)
-    numero =  models.IntegerField ()
+    numero =  models.IntegerField()
     complemento = models.CharField(max_length=100)
     bairro = models.CharField(max_length=50)
     cidade = models.CharField(max_length=100)
