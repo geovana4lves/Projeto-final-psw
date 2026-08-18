@@ -1,4 +1,6 @@
 from django.db import models
+from pessoa.models import Pessoa
+from turma.models import Turma
 
 class Matricula(models.Model):
     pessoa = models.ForeignKey(

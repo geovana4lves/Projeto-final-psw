@@ -1,4 +1,5 @@
 from django.db import models
+from curso.models import Curso
 
 class Turma(models.Model):
     nome = models.CharField(max_length=100)
@@ -6,12 +7,6 @@ class Turma(models.Model):
 
     curso = models.ForeignKey(
         Curso,
-        on_delete=models.CASCADE,
-        related_name='turmas'
-    )
-
-    professor = models.ForeignKey(
-        Professor,
         on_delete=models.CASCADE,
         related_name='turmas'
     )

@@ -1,4 +1,6 @@
 from django.db import models
+from professor.models import Professor
+from turma.models import Turma
 
 class Disciplina(models.Model):
     nome = models.CharField(max_length=100)
