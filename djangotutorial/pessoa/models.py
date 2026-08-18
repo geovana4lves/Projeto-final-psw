@@ -1,7 +1,7 @@
 from django.db import models
+from django.contrib.auth.models import User
 
-
-class Pessoa(models.Model):
+class Pessoa(User):
     nome = models.CharField(max_length=100)
     email = models.EmailField()
     cpf = models.CharField(max_length=14)
