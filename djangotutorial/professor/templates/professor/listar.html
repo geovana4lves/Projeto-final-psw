@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Professores</title>
+</head>
+
+<body>
+
+    <h1>Professores</h1>
+
+    <a href="{% url 'criar_professor' %}">
+        Cadastrar professor
+    </a>
+
+    <hr>
+
+    {% for professor in professores %}
+
+        <h3>{{ professor.nome }}</h3>
+
+        <p>CPF: {{ professor.cpf }}</p>
+        <p>Formação: {{ professor.formacao }}</p>
+        <p>Titulação: {{ professor.titulacao }}</p>
+
+        <hr>
+
+    {% empty %}
+
+        <p>Nenhum professor cadastrado.</p>
+
+    {% endfor %}
+
+</body>
+
+</html>

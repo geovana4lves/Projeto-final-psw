@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Pessoas</title>
+</head>
+
+<body>
+
+    <h1>Pessoas cadastradas</h1>
+
+    <a href="{% url 'criar_pessoa' %}">
+        Cadastrar pessoa
+    </a>
+
+    <hr>
+
+    {% for pessoa in pessoas %}
+
+        <h3>{{ pessoa.nome }}</h3>
+
+        <p>Usuário: {{ pessoa.username }}</p>
+        <p>E-mail: {{ pessoa.email }}</p>
+        <p>CPF: {{ pessoa.cpf }}</p>
+        <p>Nascimento: {{ pessoa.data_nascimento }}</p>
+        <p>Cidade: {{ pessoa.cidade }}</p>
+        <p>Estado: {{ pessoa.estado }}</p>
+
+        <hr>
+
+    {% empty %}
+
+        <p>Nenhuma pessoa cadastrada.</p>
+
+    {% endfor %}
+
+</body>
+
+</html>

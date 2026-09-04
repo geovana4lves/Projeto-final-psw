@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Cursos</title>
+</head>
+
+<body>
+
+    <h1>Cursos cadastrados</h1>
+
+    <a href="{% url 'criar_curso' %}">
+        Cadastrar novo curso
+    </a>
+
+    <hr>
+
+    {% if cursos %}
+
+        {% for curso in cursos %}
+
+            <h2>{{ curso.nome }}</h2>
+
+            <p>
+                Duração: {{ curso.duracao }}
+            </p>
+
+            <p>
+                Carga horária:
+                {{ curso.carga_horaria_total }} horas
+            </p>
+
+            <p>
+                Tipo: {{ curso.tipo }}
+            </p>
+
+            <hr>
+
+        {% endfor %}
+
+    {% else %}
+
+        <p>Nenhum curso cadastrado.</p>
+
+    {% endif %}
+
+</body>
+
+</html>

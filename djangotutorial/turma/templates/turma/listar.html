@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Turmas</title>
+</head>
+
+<body>
+
+    <h1>Turmas</h1>
+
+    <a href="{% url 'criar_turma' %}">
+        Cadastrar turma
+    </a>
+
+    <hr>
+
+    {% for turma in turmas %}
+
+        <h3>{{ turma.nome }}</h3>
+
+        <p>Capacidade: {{ turma.capacidade }}</p>
+
+        <p>
+            Curso: {{ turma.curso }}
+        </p>
+
+        <hr>
+
+    {% empty %}
+
+        <p>Nenhuma turma cadastrada.</p>
+
+    {% endfor %}
+
+</body>
+
+</html>

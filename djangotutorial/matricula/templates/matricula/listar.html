@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Matrículas</title>
+</head>
+
+<body>
+
+    <h1>Matrículas</h1>
+
+    <a href="{% url 'criar_matricula' %}">
+        Nova matrícula
+    </a>
+
+    <hr>
+
+    {% for matricula in matriculas %}
+
+        <h3>
+            {{ matricula.pessoa }}
+        </h3>
+
+        <p>
+            Turma:
+            {{ matricula.turma }}
+        </p>
+
+        <p>
+            Data:
+            {{ matricula.data_matricula }}
+        </p>
+
+        <hr>
+
+    {% empty %}
+
+        <p>Nenhuma matrícula cadastrada.</p>
+
+    {% endfor %}
+
+</body>
+
+</html>

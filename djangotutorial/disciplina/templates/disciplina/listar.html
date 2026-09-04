@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Disciplinas</title>
+</head>
+
+<body>
+
+    <h1>Disciplinas</h1>
+
+    <a href="{% url 'criar_disciplina' %}">
+        Cadastrar disciplina
+    </a>
+
+    <hr>
+
+    {% for disciplina in disciplinas %}
+
+        <h3>{{ disciplina.nome }}</h3>
+
+        <p>
+            Carga horária:
+            {{ disciplina.carga_horaria }}
+        </p>
+
+        <p>
+            Professor:
+            {{ disciplina.professor }}
+        </p>
+
+        <p>
+            Turma:
+            {{ disciplina.turma }}
+        </p>
+
+        <hr>
+
+    {% empty %}
+
+        <p>Nenhuma disciplina cadastrada.</p>
+
+    {% endfor %}
+
+</body>
+
+</html>
