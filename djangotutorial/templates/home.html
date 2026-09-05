@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Sistema Acadêmico</title>
+</head>
+
+<body>
+
+    <h1>Sistema de Gestão Acadêmica</h1>
+
+    <p>Escolha uma opção:</p>
+
+    <ul>
+        <li>
+            <a href="{% url 'listar_cursos' %}">
+                Cursos
+            </a>
+        </li>
+
+        <li>
+            <a href="{% url 'listar_pessoas' %}">
+                Pessoas
+            </a>
+        </li>
+
+        <li>
+            <a href="{% url 'listar_professores' %}">
+                Professores
+            </a>
+        </li>
+
+        <li>
+            <a href="{% url 'listar_turmas' %}">
+                Turmas
+            </a>
+        </li>
+
+        <li>
+            <a href="{% url 'listar_disciplinas' %}">
+                Disciplinas
+            </a>
+        </li>
+
+        <li>
+            <a href="{% url 'listar_matriculas' %}">
+                Matrículas
+            </a>
+        </li>
+    </ul>
+
+</body>
+
+</html>
