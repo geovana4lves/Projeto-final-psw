@@ -1,49 +1,35 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-
-<a href="{% url 'home' %}">
-    Voltar para página inicial
-</a>
-
-<head>
-    <meta charset="UTF-8">
-    <title>Matrículas</title>
-</head>
-
-<body>
-
-    <h1>Matrículas</h1>
-
-    <a href="{% url 'criar_matricula' %}">
-        Nova matrícula
-    </a>
-
-    <hr>
-
-    {% for matricula in matriculas %}
-
-        <h3>
-            {{ matricula.pessoa }}
-        </h3>
-
-        <p>
-            Turma:
-            {{ matricula.turma }}
-        </p>
-
-        <p>
-            Data:
-            {{ matricula.data_matricula }}
-        </p>
-
-        <hr>
-
-    {% empty %}
-
-        <p>Nenhuma matrícula cadastrada.</p>
-
-    {% endfor %}
-
-</body>
-
-</html>
+{% extends "base.html" %}
+{% block content %}
+    <h1>Lista de Matrículas</h1>
+    <a href="{% url 'home' %}">Voltar</a>
+    <a href="{% url 'criar_matricula' %}">Nova Matrícula</a>
+    <br><br>
+    <table border="1" cellpadding="8" cellspacing="0">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Aluno(a)</th>
+                <th>Turma</th>
+                <th>Data</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for matricula in matriculas %}
+            <tr>
+                <td>{{ matricula.id }}</td>
+                <td>{{ matricula.pessoa.nome }}</td>
+                <td>{{ matricula.turma.nome }}</td>
+                <td>{{ matricula.data_matricula }}</td>
+                <td>
+                    <a href="{% url 'detalhes_matricula' matricula.id %}">Ver</a> | 
+                    <a href="{% url 'editar_matricula' matricula.id %}">Editar</a> | 
+                    <a href="{% url 'deletar_matricula' matricula.id %}">Excluir</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="5">Nenhuma matrícula registrada.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

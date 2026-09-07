@@ -1,31 +1,11 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Cadastrar pessoa</title>
-</head>
-
-<body>
-
-    <h1>Cadastrar pessoa</h1>
-
-    <form method="post">
-
+{% extends "base.html" %}
+{% block title %}Formulário de Aluno{% endblock %}
+{% block content %}
+    <h1>{% if pessoa %}Editar Aluno(a): {{ pessoa.nome }}{% else %}Criar Aluno(a){% endif %}</h1>
+    <form method="POST">
         {% csrf_token %}
-
         {{ form.as_p }}
-
-        <button type="submit">
-            Salvar
-        </button>
-
+        <button type="submit">Salvar</button>
+        <a href="{% url 'listar_pessoas' %}">Cancelar</a>
     </form>
-
-    <a href="{% url 'listar_pessoas' %}">
-        Voltar
-    </a>
-
-</body>
-
-</html>
+{% endblock %}

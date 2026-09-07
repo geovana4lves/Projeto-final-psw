@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Detalhes da Matrícula</h1>
+    <p><strong>Aluno(a):</strong> {{ matricula.pessoa.nome }}</p>
+    <p><strong>Turma:</strong> {{ matricula.turma.nome }}</p>
+    <p><strong>Data da Matrícula:</strong> {{ matricula.data_matricula }}</p>
+    <br>
+    <a href="{% url 'editar_matricula' matricula.id %}">Editar</a> |
+    <a href="{% url 'deletar_matricula' matricula.id %}">Excluir</a> |
+    <a href="{% url 'listar_matriculas' %}">Voltar para a lista</a>
+{% endblock %}

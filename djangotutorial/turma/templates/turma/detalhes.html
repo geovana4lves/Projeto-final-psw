@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Detalhes da Turma{% endblock %}
+{% block content %}
+    <h1>Detalhes da Turma</h1>
+
+    <p><strong>ID:</strong> {{ turma.id }}</p>
+    <p><strong>Nome:</strong> {{ turma.nome }}</p>
+    <p><strong>Capacidade:</strong> {{ turma.capacidade }} alunos</p>
+    <p><strong>Curso:</strong> {{ turma.curso.nome }}</p>
+
+    <br>
+    <a href="{% url 'editar_turma' turma.id %}">Editar</a> |
+    <a href="{% url 'deletar_turma' turma.id %}">Excluir</a> |
+    <a href="{% url 'listar_turmas' %}">Voltar para a lista</a>
+{% endblock %}

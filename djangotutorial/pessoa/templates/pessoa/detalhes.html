@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Detalhes: {{ pessoa.nome }}</h1>
+    <p><strong>CPF:</strong> {{ pessoa.cpf }}</p>
+    <p><strong>Data de Nascimento:</strong> {{ pessoa.data_nascimento }}</p>
+    <p><strong>Endereço:</strong> {{ pessoa.logradouro }}, {{ pessoa.numero }} - {{ pessoa.complemento }}</p>
+    <p><strong>Bairro:</strong> {{ pessoa.bairro }}</p>
+    <p><strong>Local:</strong> {{ pessoa.cidade }} - {{ pessoa.estado }}</p>
+    <br>
+    <a href="{% url 'editar_pessoa' pessoa.id %}">Editar</a> |
+    <a href="{% url 'deletar_pessoa' pessoa.id %}">Excluir</a> |
+    <a href="{% url 'listar_pessoas' %}">Voltar para a lista</a>
+{% endblock %}

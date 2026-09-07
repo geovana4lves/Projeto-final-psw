@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>{% if disciplina %}Editar Matricula: {{ matricula.nome }}{% else %}Criar Matricula{% endif %}</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Salvar Alterações</button>
+        <a href="{% url 'listar_matriculas' %}">Cancelar</a>
+    </form>
+{% endblock %}

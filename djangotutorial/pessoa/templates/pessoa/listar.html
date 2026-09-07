@@ -1,44 +1,35 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-
-<a href="{% url 'home' %}">
-    Voltar para página inicial
-</a>
-
-<head>
-    <meta charset="UTF-8">
-    <title>Pessoas</title>
-</head>
-
-<body>
-
-    <h1>Pessoas cadastradas</h1>
-
-    <a href="{% url 'criar_pessoa' %}">
-        Cadastrar pessoa
-    </a>
-
-    <hr>
-
-    {% for pessoa in pessoas %}
-
-        <h3>{{ pessoa.nome }}</h3>
-
-        <p>Usuário: {{ pessoa.username }}</p>
-        <p>E-mail: {{ pessoa.email }}</p>
-        <p>CPF: {{ pessoa.cpf }}</p>
-        <p>Nascimento: {{ pessoa.data_nascimento }}</p>
-        <p>Cidade: {{ pessoa.cidade }}</p>
-        <p>Estado: {{ pessoa.estado }}</p>
-
-        <hr>
-
-    {% empty %}
-
-        <p>Nenhuma pessoa cadastrada.</p>
-
-    {% endfor %}
-
-</body>
-
-</html>
+{% extends "base.html" %}
+{% block content %}
+    <h1>Lista de Alunos</h1>
+    <a href="{% url 'home' %}">Voltar</a>
+    <a href="{% url 'criar_pessoa' %}">Adicionar Novo Aluno</a>
+    <br><br>
+    <table border="1" cellpadding="8" cellspacing="0">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>CPF</th>
+                <th>Cidade/UF</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pessoa in pessoas %}
+            <tr>
+                <td>{{ pessoa.id }}</td>
+                <td>{{ pessoa.nome }}</td>
+                <td>{{ pessoa.cpf }}</td>
+                <td>{{ pessoa.cidade }} - {{ pessoa.estado }}</td>
+                <td>
+                    <a href="{% url 'detalhes_pessoa' pessoa.id %}">Ver</a> | 
+                    <a href="{% url 'editar_pessoa' pessoa.id %}">Editar</a> | 
+                    <a href="{% url 'deletar_pessoa' pessoa.id %}">Excluir</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="5">Nenhum aluno cadastrada.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

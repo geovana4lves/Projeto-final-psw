@@ -1,31 +1,13 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+{% extends "base.html" %}
+{% block title %}Criar Turma{% endblock %}
+{% block content %}
+    <h1>Criar Turma</h1>
 
-<head>
-    <meta charset="UTF-8">
-    <title>Cadastrar turma</title>
-</head>
-
-<body>
-
-    <h1>Cadastrar turma</h1>
-
-    <form method="post">
-
+    <form method="POST">
         {% csrf_token %}
-
         {{ form.as_p }}
-
-        <button type="submit">
-            Salvar
-        </button>
-
+        
+        <button type="submit">Salvar Turma</button>
+        <a href="{% url 'listar_turmas' %}">Cancelar</a>
     </form>
-
-    <a href="{% url 'listar_turmas' %}">
-        Voltar
-    </a>
-
-</body>
-
-</html>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Excluir Turma{% endblock %}
+{% block content %}
+    <h1>Excluir Turma</h1>
+    <p>Tem certeza que deseja excluir a turma "<strong>{{ turma.nome }}</strong>"? Esta ação não pode ser desfeita.</p>
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit">Sim, Excluir</button>
+        <a href="{% url 'listar_turmas' %}">Cancelar</a>
+    </form>
+{% endblock %}

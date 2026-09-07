@@ -1,52 +1,36 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-
-<a href="{% url 'home' %}">
-    Voltar para página inicial
-</a>
-
-<head>
-    <meta charset="UTF-8">
-    <title>Disciplinas</title>
-</head>
-
-<body>
-
-    <h1>Disciplinas</h1>
-
-    <a href="{% url 'criar_disciplina' %}">
-        Cadastrar disciplina
-    </a>
-
-    <hr>
-
-    {% for disciplina in disciplinas %}
-
-        <h3>{{ disciplina.nome }}</h3>
-
-        <p>
-            Carga horária:
-            {{ disciplina.carga_horaria }}
-        </p>
-
-        <p>
-            Professor:
-            {{ disciplina.professor }}
-        </p>
-
-        <p>
-            Turma:
-            {{ disciplina.turma }}
-        </p>
-
-        <hr>
-
-    {% empty %}
-
-        <p>Nenhuma disciplina cadastrada.</p>
-
-    {% endfor %}
-
-</body>
-
-</html>
+{% extends "base.html" %}
+{% block title %}Lista de Disciplinas{% endblock %}
+{% block content %}
+    <h1>Lista de Disciplinas</h1>
+    <a href="{% url 'home' %}">Voltar</a>
+    <a href="{% url 'criar_disciplina' %}">Adicionar Nova Disciplina</a>
+    <br><br>
+    <table border="1" cellpadding="8" cellspacing="0">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Professor</th>
+                <th>Turma</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for disciplina in disciplinas %}
+            <tr>
+                <td>{{ disciplina.id }}</td>
+                <td>{{ disciplina.nome }}</td>
+                <td>{{ disciplina.professor.nome }}</td>
+                <td>{{ disciplina.turma.nome }}</td>
+                <td>
+                    <a href="{% url 'detalhes_disciplina' disciplina.id %}">Ver</a> | 
+                    <a href="{% url 'editar_disciplina' disciplina.id %}">Editar</a> | 
+                    <a href="{% url 'deletar_disciplina' disciplina.id %}">Excluir</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="5">Nenhuma disciplina cadastrada.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

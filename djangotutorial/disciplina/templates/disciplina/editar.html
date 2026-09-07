@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>{% if disciplina %}Editar Disciplina: {{ disciplina.nome }}{% else %}Criar Disciplina{% endif %}</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Salvar Alterações</button>
+        <a href="{% url 'listar_disciplinas' %}">Cancelar</a>
+    </form>
+{% endblock %}

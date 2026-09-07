@@ -1,31 +1,10 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Realizar matrícula</title>
-</head>
-
-<body>
-
-    <h1>Realizar matrícula</h1>
-
-    <form method="post">
-
+{% extends "base.html" %}
+{% block content %}
+    <h1>{% if disciplina %}Editar Matricula: {{ matricula.nome }}{% else %}Criar Matricula{% endif %}</h1>
+    <form method="POST">
         {% csrf_token %}
-
         {{ form.as_p }}
-
-        <button type="submit">
-            Salvar
-        </button>
-
+        <button type="submit">Salvar</button>
+        <a href="{% url 'listar_matriculas' %}">Cancelar</a>
     </form>
-
-    <a href="{% url 'listar_matriculas' %}">
-        Voltar
-    </a>
-
-</body>
-
-</html>
+{% endblock %}

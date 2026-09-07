@@ -1,31 +1,11 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Cadastrar professor</title>
-</head>
-
-<body>
-
-    <h1>Cadastrar professor</h1>
-
-    <form method="post">
-
+{% extends "base.html" %}
+{% block title %}Formulário de Professor{% endblock %}
+{% block content %}
+    <h1>{% if pessoa %}Editar Professor: {{ professor.nome }}{% else %}Criar Professor{% endif %}</h1>
+    <form method="POST">
         {% csrf_token %}
-
         {{ form.as_p }}
-
-        <button type="submit">
-            Salvar
-        </button>
-
+        <button type="submit">Salvar</button>
+        <a href="{% url 'listar_professores' %}">Cancelar</a>
     </form>
-
-    <a href="{% url 'listar_professores' %}">
-        Voltar
-    </a>
-
-</body>
-
-</html>
+{% endblock %}

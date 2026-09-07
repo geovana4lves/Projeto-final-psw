@@ -1,43 +1,36 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-
-<a href="{% url 'home' %}">
-    Voltar para página inicial
-</a>
-
-<head>
-    <meta charset="UTF-8">
-    <title>Turmas</title>
-</head>
-
-<body>
-
-    <h1>Turmas</h1>
-
-    <a href="{% url 'criar_turma' %}">
-        Cadastrar turma
-    </a>
-
-    <hr>
-
-    {% for turma in turmas %}
-
-        <h3>{{ turma.nome }}</h3>
-
-        <p>Capacidade: {{ turma.capacidade }}</p>
-
-        <p>
-            Curso: {{ turma.curso }}
-        </p>
-
-        <hr>
-
-    {% empty %}
-
-        <p>Nenhuma turma cadastrada.</p>
-
-    {% endfor %}
-
-</body>
-
-</html>
+{% extends "base.html" %}
+{% block title %}Lista de Turmas{% endblock %}
+{% block content %}
+    <h1>Lista de Turmas</h1>
+    <a href="{% url 'home' %}">Voltar</a>
+    <a href="{% url 'criar_turma' %}">Adicionar Nova Turma</a>
+    <br><br>
+    <table border="1" cellpadding="8" cellspacing="0">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Curso</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for turma in turmas %}
+            <tr>
+                <td>{{ turma.id }}</td>
+                <td>{{ turma.nome }}</td>
+                <td>{{ turma.curso.nome }}</td>
+                <td>
+                    <a href="{% url 'detalhes_turma' turma.id %}">Ver</a> | 
+                    <a href="{% url 'editar_turma' turma.id %}">Editar</a> | 
+                    <a href="{% url 'deletar_turma' turma.id %}">Excluir</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">Nenhuma turma cadastrada.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

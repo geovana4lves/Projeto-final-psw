@@ -1,31 +1,10 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Cadastrar disciplina</title>
-</head>
-
-<body>
-
-    <h1>Cadastrar disciplina</h1>
-
-    <form method="post">
-
+{% extends "base.html" %}
+{% block content %}
+    <h1>{% if disciplina %}Editar Disciplina: {{ disciplina.nome }}{% else %}Criar Disciplina{% endif %}</h1>
+    <form method="POST">
         {% csrf_token %}
-
         {{ form.as_p }}
-
-        <button type="submit">
-            Salvar
-        </button>
-
+        <button type="submit">Salvar</button>
+        <a href="{% url 'listar_disciplinas' %}">Cancelar</a>
     </form>
-
-    <a href="{% url 'listar_disciplinas' %}">
-        Voltar
-    </a>
-
-</body>
-
-</html>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Detalhes da Disciplina{% endblock %}
+{% block content %}
+    <h1>Detalhes da Disciplina</h1>
+    <p><strong>Nome:</strong> {{ disciplina.nome }}</p>
+    <p><strong>Carga Horária:</strong> {{ disciplina.carga_horaria }}h</p>
+    <p><strong>Professor:</strong> {{ disciplina.professor.nome }}</p>
+    <p><strong>Turma:</strong> {{ disciplina.turma.nome }}</p>
+    <br>
+    <a href="{% url 'editar_disciplina' disciplina.id %}">Editar</a> |
+    <a href="{% url 'deletar_disciplina' disciplina.id %}">Excluir</a> |
+    <a href="{% url 'listar_disciplinas' %}">Voltar para a lista</a>
+{% endblock %}

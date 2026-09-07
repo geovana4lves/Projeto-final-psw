@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Detalhes do Curso{% endblock %}
+{% block content %}
+    <h1>Detalhes do Curso</h1>
+    <p><strong>ID:</strong> {{ curso.id }}</p>
+    <p><strong>Nome:</strong> {{ curso.nome }}</p>
+    <p><strong>Duração:</strong> {{ curso.duracao }}</p>
+    <p><strong>Carga Horária Total:</strong> {{ curso.carga_horaria_total }}h</p>
+    <p><strong>Tipo:</strong> {{ curso.tipo }}</p>
+    <br>
+    <a href="{% url 'editar_curso' curso.id %}">Editar</a> |
+    <a href="{% url 'deletar_curso' curso.id %}">Excluir</a> |
+    <a href="{% url 'listar_cursos' %}">Voltar para a lista</a>
+{% endblock %}

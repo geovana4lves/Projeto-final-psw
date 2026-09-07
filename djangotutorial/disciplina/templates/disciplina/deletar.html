@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Excluir Disciplina</h1>
+    <p>Tem certeza que deseja excluir "<strong>{{ disciplina.nome }}</strong>"?</p>
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit">Sim, Excluir</button>
+        <a href="{% url 'listar_disciplinas' %}">Cancelar</a>
+    </form>
+{% endblock %}
