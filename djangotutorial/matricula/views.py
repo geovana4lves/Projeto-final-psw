@@ -1,14 +1,17 @@
+from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Matricula
 from .forms import MatriculaForm
 
-
+@login_required
+@permission_required('matricula.view_matricula', raise_exception=True)
 def listar_matriculas(request):
     matriculas = Matricula.objects.all()
 
     return render(request, 'matricula/listar.html', {'matriculas': matriculas})
 
-
+@login_required
+@permission_required('matricula.add_matricula', raise_exception=True)
 def criar_matricula(request):
     if request.method == 'POST':
         form = MatriculaForm(request.POST)
@@ -19,6 +22,8 @@ def criar_matricula(request):
         form = MatriculaForm()
     return render(request, 'matricula/criar.html', {'form': form})
 
+@login_required
+@permission_required('matricula.change_matricula', raise_exception=True)
 def editar_matricula(request, id):
     matricula = get_object_or_404(Matricula, id=id)
 
@@ -33,12 +38,16 @@ def editar_matricula(request, id):
     context = {"form": form, "matricula": matricula}
     return render(request, "matricula/editar.html", context)
 
+@login_required
+@permission_required('matricula.view_matricula', raise_exception=True)
 def detalhar_matricula(request, id):
     matricula = get_object_or_404(Matricula, id=id)
 
     context = {"matricula": matricula}
     return render(request, "matricula/detalhes.html", context)
 
+@login_required
+@permission_required('matricula.delete_matricula', raise_exception=True)
 def deletar_matricula(request, id):
     matricula = get_object_or_404(Matricula, id=id)
 

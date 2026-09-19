@@ -5,6 +5,21 @@
     <title>{% block title %}Sistema Acadêmico{% endblock %}</title>
 </head>
 <body>
+    {% block auth_bar %}
+    <header>
+        {% if request.user.is_authenticated %}
+            <form action="{% url 'logout' %}" method="POST" style="display: inline;">
+                {% csrf_token %}
+                Olá, {{ request.user }}!
+                <button type="submit">Sair</button>
+            </form>
+        {% else %}
+            <a href="{% url 'login' %}">Entrar</a> |
+            <a href="{% url 'criar_pessoa' %}">Cadastrar-se</a>
+        {% endif %}
+    </header>
+    <hr>
+    {% endblock %}
     <main>
         {% block content %}
         {% endblock %}

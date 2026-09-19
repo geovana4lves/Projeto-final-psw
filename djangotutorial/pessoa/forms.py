@@ -1,8 +1,9 @@
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
 from .models import Pessoa
 
 
-class PessoaForm(forms.ModelForm):
+class PessoaForm(UserCreationForm):
     class Meta:
         model = Pessoa
         fields = [
@@ -20,17 +21,5 @@ class PessoaForm(forms.ModelForm):
         ]
 
         widgets = {
-            'data_nascimento': forms.DateInput(
-                attrs={'type': 'date'}
-            )
+            'data_nascimento': forms.DateInput(attrs={'type': 'date'})
         }
-
-    def save(self, commit=True):
-        pessoa = super().save(commit=False)
-
-        pessoa.set_unusable_password()
-
-        if commit:
-            pessoa.save()
-
-        return pessoa

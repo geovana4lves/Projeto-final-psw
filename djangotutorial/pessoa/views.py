@@ -1,8 +1,10 @@
+from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Pessoa
 from .forms import PessoaForm
 
-
+@login_required
+@permission_required('pessoa.view_pessoa', raise_exception=True)
 def listar_pessoas(request):
     pessoas = Pessoa.objects.all()
 
@@ -20,6 +22,8 @@ def criar_pessoa(request):
         form = PessoaForm()
     return render(request, 'pessoa/criar.html', {'form': form})
 
+@login_required
+@permission_required('pessoa.change_pessoa', raise_exception=True)
 def editar_pessoa(request, id):
     pessoa = get_object_or_404(Pessoa, id=id)
 
@@ -33,13 +37,17 @@ def editar_pessoa(request, id):
 
     context = {"form": form, "pessoa": pessoa}
     return render(request, "pessoa/editar.html", context)
-        
+  
+@login_required 
+@permission_required('pessoa.view_pessoa', raise_exception=True)      
 def detalhar_pessoa(request, id):
     pessoa = get_object_or_404(Pessoa, id=id)
 
     context = {"pessoa": pessoa}
     return render(request, "pessoa/detalhes.html", context)
 
+@login_required
+@permission_required('pessoa.delete_pessoa', raise_exception=True)    
 def deletar_pessoa(request, id):
     pessoa = get_object_or_404(Pessoa, id=id)
 

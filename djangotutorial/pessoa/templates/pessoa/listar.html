@@ -2,7 +2,9 @@
 {% block content %}
     <h1>Lista de Alunos</h1>
     <a href="{% url 'home' %}">Voltar</a>
-    <a href="{% url 'criar_pessoa' %}">Adicionar Novo Aluno</a>
+    {% if perms.pessoa.add_pessoa %}
+        <a href="{% url 'criar_pessoa' %}">Adicionar Novo Aluno</a>
+    {% endif %}
     <br><br>
     <table border="1" cellpadding="8" cellspacing="0">
         <thead>
@@ -22,9 +24,13 @@
                 <td>{{ pessoa.cpf }}</td>
                 <td>{{ pessoa.cidade }} - {{ pessoa.estado }}</td>
                 <td>
-                    <a href="{% url 'detalhes_pessoa' pessoa.id %}">Ver</a> | 
-                    <a href="{% url 'editar_pessoa' pessoa.id %}">Editar</a> | 
-                    <a href="{% url 'deletar_pessoa' pessoa.id %}">Excluir</a>
+                    <a href="{% url 'detalhes_pessoa' pessoa.id %}">Ver</a>
+    {% if perms.pessoa.change_pessoa %}
+        | <a href="{% url 'editar_pessoa' pessoa.id %}">Editar</a>
+    {% endif %}
+    {% if perms.pessoa.delete_pessoa %}
+        | <a href="{% url 'deletar_pessoa' pessoa.id %}">Excluir</a>
+    {% endif %}
                 </td>
             </tr>
             {% empty %}

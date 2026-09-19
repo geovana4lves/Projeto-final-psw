@@ -1,8 +1,9 @@
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
 from .models import Professor
 
 
-class ProfessorForm(forms.ModelForm):
+class ProfessorForm(UserCreationForm):
     class Meta:
         model = Professor
         fields = [
@@ -22,18 +23,5 @@ class ProfessorForm(forms.ModelForm):
         ]
 
         widgets = {
-            'data_nascimento': forms.DateInput(
-                attrs={'type': 'date'}
-            )
+            'data_nascimento': forms.DateInput(attrs={'type': 'date'})
         }
-
-    def save(self, commit=True):
-        professor = super().save(commit=False)
-
-        professor.set_unusable_password()
-
-        if commit:
-            professor.save()
-
-        return professor
-    

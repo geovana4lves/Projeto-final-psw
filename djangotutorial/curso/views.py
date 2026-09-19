@@ -1,12 +1,16 @@
+from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Curso
 from .forms import CursoForm
 
-
+@login_required
+@permission_required('curso.view_curso', raise_exception=True)
 def listar_cursos(request):
     cursos = Curso.objects.all()
     return render(request, 'curso/listar.html', {'cursos': cursos})
 
+@login_required
+@permission_required('curso.add_curso', raise_exception=True)
 def criar_curso(request):
     if request.method == 'POST':
         form = CursoForm(request.POST)
@@ -17,7 +21,9 @@ def criar_curso(request):
         form = CursoForm()
 
     return render(request, 'curso/criar.html', {'form': form})
-    
+  
+@login_required  
+@permission_required('curso.change_curso', raise_exception=True) 
 def editar_curso(request, id):
     curso = get_object_or_404(Curso, id=id)
     
@@ -32,12 +38,16 @@ def editar_curso(request, id):
     context = {"form": form, "curso": curso}
     return render(request, "curso/editar.html", context)
 
+@login_required
+@permission_required('curso.view_curso', raise_exception=True)
 def detalhar_curso(request, id):
     curso = get_object_or_404(Curso, id=id)
 
     context = {"curso": curso}
     return render(request, "curso/detalhes.html", context)
 
+@login_required
+@permission_required('curso.delete_curso', raise_exception=True)
 def deletar_curso(request, id):
     curso = get_object_or_404(Curso, id=id)
     

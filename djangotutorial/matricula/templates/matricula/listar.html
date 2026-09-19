@@ -2,7 +2,9 @@
 {% block content %}
     <h1>Lista de Matrículas</h1>
     <a href="{% url 'home' %}">Voltar</a>
-    <a href="{% url 'criar_matricula' %}">Nova Matrícula</a>
+    {% if perms.matricula.add_matricula %}
+        <a href="{% url 'criar_matricula' %}">Adicionar Nova Matrícula</a>
+    {% endif %}
     <br><br>
     <table border="1" cellpadding="8" cellspacing="0">
         <thead>
@@ -22,9 +24,13 @@
                 <td>{{ matricula.turma.nome }}</td>
                 <td>{{ matricula.data_matricula }}</td>
                 <td>
-                    <a href="{% url 'detalhes_matricula' matricula.id %}">Ver</a> | 
-                    <a href="{% url 'editar_matricula' matricula.id %}">Editar</a> | 
-                    <a href="{% url 'deletar_matricula' matricula.id %}">Excluir</a>
+                    <a href="{% url 'detalhes_matricula' matricula.id %}">Ver</a>
+    {% if perms.matricula.change_matricula %}
+        | <a href="{% url 'editar_matricula' matricula.id %}">Editar</a>
+    {% endif %}
+    {% if perms.matricula.delete_matricula %}
+        | <a href="{% url 'deletar_matricula' matricula.id %}">Excluir</a>
+    {% endif %}
                 </td>
             </tr>
             {% empty %}

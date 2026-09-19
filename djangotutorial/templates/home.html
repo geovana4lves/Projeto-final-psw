@@ -4,13 +4,18 @@
 
 {% block content %}
     <h1>Sistema de Gestão Acadêmica</h1>
-    <p>Escolha uma opção:</p>
-    <ul>
-        <li><a href="{% url 'listar_cursos' %}">Cursos</a></li>
-        <li><a href="{% url 'listar_pessoas' %}">Alunos</a></li>
-        <li><a href="{% url 'listar_professores' %}">Professores</a></li>
-        <li><a href="{% url 'listar_turmas' %}">Turmas</a></li>
-        <li><a href="{% url 'listar_disciplinas' %}">Disciplinas</a></li>
-        <li><a href="{% url 'listar_matriculas' %}">Matrículas</a></li>
-    </ul>
+
+    {% if not perms.pessoa and not perms.professor and not perms.curso and not perms.turma and not perms.disciplina and not perms.matricula %}
+        <p>Sua conta ainda não tem permissões. Peça a um administrador para incluí-la em um grupo.</p>
+    {% else %}
+        <p>Escolha uma opção:</p>
+        <ul>
+            {% if perms.curso.view_curso %}<li><a href="{% url 'listar_cursos' %}">Cursos</a></li>{% endif %}
+            {% if perms.pessoa.view_pessoa %}<li><a href="{% url 'listar_pessoas' %}">Alunos</a></li>{% endif %}
+            {% if perms.professor.view_professor %}<li><a href="{% url 'listar_professores' %}">Professores</a></li>{% endif %}
+            {% if perms.turma.view_turma %}<li><a href="{% url 'listar_turmas' %}">Turmas</a></li>{% endif %}
+            {% if perms.disciplina.view_disciplina %}<li><a href="{% url 'listar_disciplinas' %}">Disciplinas</a></li>{% endif %}
+            {% if perms.matricula.view_matricula %}<li><a href="{% url 'listar_matriculas' %}">Matrículas</a></li>{% endif %}
+        </ul>
+    {% endif %}
 {% endblock %}

@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block title %}Acesso negado{% endblock %}
+{% block content %}
+    <h1>Acesso negado</h1>
+    <p>Você está logado, mas não tem permissão para fazer isso.</p>
+    <p>Se você acha que deveria ter acesso, peça a um administrador para incluir sua conta em um grupo.</p>
+    <a href="{% url 'home' %}">Voltar para o início</a>
+{% endblock %}

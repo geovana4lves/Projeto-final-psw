@@ -2,8 +2,10 @@
 {% block title %}Lista de Disciplinas{% endblock %}
 {% block content %}
     <h1>Lista de Disciplinas</h1>
-    <a href="{% url 'home' %}">Voltar</a>
-    <a href="{% url 'criar_disciplina' %}">Adicionar Nova Disciplina</a>
+    <a href="{% url 'home' %}">Voltar</a>        
+    {% if perms.disciplina.add_disciplina %}
+        <a href="{% url 'criar_disciplina' %}">Adicionar Nova Disciplina</a>
+    {% endif %}
     <br><br>
     <table border="1" cellpadding="8" cellspacing="0">
         <thead>
@@ -23,9 +25,13 @@
                 <td>{{ disciplina.professor.nome }}</td>
                 <td>{{ disciplina.turma.nome }}</td>
                 <td>
-                    <a href="{% url 'detalhes_disciplina' disciplina.id %}">Ver</a> | 
-                    <a href="{% url 'editar_disciplina' disciplina.id %}">Editar</a> | 
+                    <a href="{% url 'detalhes_disciplina' disciplina.id %}">Ver</a>
+                    {% if perms.disciplina.change_disciplina %}
+                    <a href="{% url 'editar_disciplina' disciplina.id %}">Editar</a>
+                    {% endif %}
+                    {% if perms.disciplina.delete_disciplina %}
                     <a href="{% url 'deletar_disciplina' disciplina.id %}">Excluir</a>
+                    {% endif %}
                 </td>
             </tr>
             {% empty %}

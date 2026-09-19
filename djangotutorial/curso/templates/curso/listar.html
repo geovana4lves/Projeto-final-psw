@@ -3,7 +3,9 @@
 {% block content %}
     <h1>Lista de Cursos</h1>
     <a href="{% url 'home' %}">Voltar</a>
-    <a href="{% url 'criar_curso' %}">Adicionar Novo Curso</a>
+        {% if perms.curso.add_curso %}
+        <a href="{% url 'criar_curso' %}">Adicionar Novo Curso</a>
+    {% endif %}
     <br><br>
     <table border="1" cellpadding="8" cellspacing="0">
         <thead>
@@ -23,9 +25,13 @@
                 <td>{{ curso.duracao }} semestres</td>
                 <td>{{ curso.tipo }}</td>
                 <td>
-                    <a href="{% url 'detalhes_curso' curso.id %}">Ver</a> | 
-                    <a href="{% url 'editar_curso' curso.id %}">Editar</a> | 
+                    <a href="{% url 'detalhes_curso' curso.id %}">Ver</a>
+                    {% if perms.curso.change_curso %}
+                    <a href="{% url 'editar_curso' curso.id %}">Editar</a>
+                    {% endif %}
+                    {% if perms.curso.delete_curso %}
                     <a href="{% url 'deletar_curso' curso.id %}">Excluir</a>
+                    {% endif %}
                 </td>
             </tr>
             {% empty %}

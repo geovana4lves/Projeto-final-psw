@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Entrar - Sistema Acadêmico{% endblock %}
+
+{# Na tela de login não precisamos da barra "Entrar | Cadastrar-se" #}
+{% block auth_bar %}{% endblock %}
+
+{% block content %}
+    <h1>Entrar</h1>
+    <form method="POST" action="{% url 'login' %}">
+        {% csrf_token %}
+
+        {% if form.errors %}
+            <p style="color: red;">Usuário ou senha incorretos.</p>
+        {% endif %}
+
+        {# Guarda para onde o usuário queria ir antes de ser mandado ao login #}
+        <input type="hidden" name="next" value="{{ next }}">
+
+        <p>
+            <label for="{{ form.username.id_for_label }}">Usuário:</label>
+            {{ form.username }}
+        </p>
+        <p>
+            <label for="{{ form.password.id_for_label }}">Senha:</label>
+            {{ form.password }}
+        </p>
+
+        <button type="submit">Entrar</button>
+    </form>
+
+    <p>Ainda não tem conta? <a href="{% url 'criar_pessoa' %}">Cadastre-se</a></p>
+{% endblock %}
