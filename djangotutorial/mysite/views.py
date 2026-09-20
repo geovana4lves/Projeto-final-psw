@@ -11,7 +11,17 @@ def home(request):
 
 @login_required
 def painel(request):
+
     return render(
         request,
         'painel.html'
+    )
+
+
+def erro_403(request, exception=None):
+
+    return render(
+        request,
+        '403.html',
+        status=403
     )

@@ -17,3 +17,5 @@ urlpatterns = [
     path('disciplinas/', include('disciplina.urls')),
     path('matriculas/', include('matricula.urls')),
 ]
+
+handler403 = 'mysite.views.erro_403'
