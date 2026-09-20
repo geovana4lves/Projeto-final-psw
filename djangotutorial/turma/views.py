@@ -1,34 +1,40 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib import messages
+from django.db.models import Q
 
 from .models import Turma
 from .forms import TurmaForm
 
 
 @login_required
-@permission_required(
-    'turma.view_turma',
-    raise_exception=True
-)
+@permission_required('turma.view_turma', raise_exception=True)
 def listar_turmas(request):
 
-    turmas = Turma.objects.all()
+    q = request.GET.get('q', '').strip()
+
+    turmas = Turma.objects.select_related('curso').all()
+
+    if q:
+        turmas = turmas.filter(
+            Q(nome__icontains=q) |
+            Q(curso__nome__icontains=q)
+        )
+
+    turmas = turmas.order_by('nome')
 
     return render(
         request,
         'turma/listar.html',
         {
-            'turmas': turmas
+            'turmas': turmas,
+            'q': q
         }
     )
 
 
 @login_required
-@permission_required(
-    'turma.add_turma',
-    raise_exception=True
-)
+@permission_required('turma.add_turma', raise_exception=True)
 def criar_turma(request):
 
     if request.method == 'POST':
@@ -53,23 +59,15 @@ def criar_turma(request):
     return render(
         request,
         'turma/criar.html',
-        {
-            'form': form
-        }
+        {'form': form}
     )
 
 
 @login_required
-@permission_required(
-    'turma.change_turma',
-    raise_exception=True
-)
+@permission_required('turma.change_turma', raise_exception=True)
 def editar_turma(request, id):
 
-    turma = get_object_or_404(
-        Turma,
-        id=id
-    )
+    turma = get_object_or_404(Turma, id=id)
 
     if request.method == 'POST':
 
@@ -94,9 +92,7 @@ def editar_turma(request, id):
 
     else:
 
-        form = TurmaForm(
-            instance=turma
-        )
+        form = TurmaForm(instance=turma)
 
     return render(
         request,
@@ -109,37 +105,26 @@ def editar_turma(request, id):
 
 
 @login_required
-@permission_required(
-    'turma.view_turma',
-    raise_exception=True
-)
+@permission_required('turma.view_turma', raise_exception=True)
 def detalhar_turma(request, id):
 
     turma = get_object_or_404(
-        Turma,
+        Turma.objects.select_related('curso'),
         id=id
     )
 
     return render(
         request,
         'turma/detalhes.html',
-        {
-            'turma': turma
-        }
+        {'turma': turma}
     )
 
 
 @login_required
-@permission_required(
-    'turma.delete_turma',
-    raise_exception=True
-)
+@permission_required('turma.delete_turma', raise_exception=True)
 def deletar_turma(request, id):
 
-    turma = get_object_or_404(
-        Turma,
-        id=id
-    )
+    turma = get_object_or_404(Turma, id=id)
 
     if request.method == 'POST':
 
@@ -157,7 +142,5 @@ def deletar_turma(request, id):
     return render(
         request,
         'turma/deletar.html',
-        {
-            'turma': turma
-        }
+        {'turma': turma}
     )

@@ -1,25 +1,37 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib import messages
+from django.db.models import Q
 
 from .models import Pessoa
 from .forms import PessoaForm
 
 
 @login_required
-@permission_required(
-    'pessoa.view_pessoa',
-    raise_exception=True
-)
+@permission_required('pessoa.view_pessoa', raise_exception=True)
 def listar_pessoas(request):
 
+    q = request.GET.get('q', '').strip()
+
     pessoas = Pessoa.objects.all()
+
+    if q:
+        pessoas = pessoas.filter(
+            Q(nome__icontains=q) |
+            Q(username__icontains=q) |
+            Q(email__icontains=q) |
+            Q(cpf__icontains=q) |
+            Q(cidade__icontains=q)
+        )
+
+    pessoas = pessoas.order_by('nome')
 
     return render(
         request,
         'pessoa/listar.html',
         {
-            'pessoas': pessoas
+            'pessoas': pessoas,
+            'q': q
         }
     )
 
@@ -48,23 +60,15 @@ def criar_pessoa(request):
     return render(
         request,
         'pessoa/criar.html',
-        {
-            'form': form
-        }
+        {'form': form}
     )
 
 
 @login_required
-@permission_required(
-    'pessoa.change_pessoa',
-    raise_exception=True
-)
+@permission_required('pessoa.change_pessoa', raise_exception=True)
 def editar_pessoa(request, id):
 
-    pessoa = get_object_or_404(
-        Pessoa,
-        id=id
-    )
+    pessoa = get_object_or_404(Pessoa, id=id)
 
     if request.method == 'POST':
 
@@ -89,9 +93,7 @@ def editar_pessoa(request, id):
 
     else:
 
-        form = PessoaForm(
-            instance=pessoa
-        )
+        form = PessoaForm(instance=pessoa)
 
     return render(
         request,
@@ -104,37 +106,23 @@ def editar_pessoa(request, id):
 
 
 @login_required
-@permission_required(
-    'pessoa.view_pessoa',
-    raise_exception=True
-)
+@permission_required('pessoa.view_pessoa', raise_exception=True)
 def detalhar_pessoa(request, id):
 
-    pessoa = get_object_or_404(
-        Pessoa,
-        id=id
-    )
+    pessoa = get_object_or_404(Pessoa, id=id)
 
     return render(
         request,
         'pessoa/detalhes.html',
-        {
-            'pessoa': pessoa
-        }
+        {'pessoa': pessoa}
     )
 
 
 @login_required
-@permission_required(
-    'pessoa.delete_pessoa',
-    raise_exception=True
-)
+@permission_required('pessoa.delete_pessoa', raise_exception=True)
 def deletar_pessoa(request, id):
 
-    pessoa = get_object_or_404(
-        Pessoa,
-        id=id
-    )
+    pessoa = get_object_or_404(Pessoa, id=id)
 
     if request.method == 'POST':
 
@@ -152,7 +140,5 @@ def deletar_pessoa(request, id):
     return render(
         request,
         'pessoa/deletar.html',
-        {
-            'pessoa': pessoa
-        }
+        {'pessoa': pessoa}
     )

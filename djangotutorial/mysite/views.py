@@ -1,6 +1,13 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 
+from curso.models import Curso
+from pessoa.models import Pessoa
+from professor.models import Professor
+from turma.models import Turma
+from disciplina.models import Disciplina
+from matricula.models import Matricula
+
 
 def home(request):
     return render(
@@ -12,9 +19,19 @@ def home(request):
 @login_required
 def painel(request):
 
+    contexto = {
+        'total_cursos': Curso.objects.count(),
+        'total_pessoas': Pessoa.objects.count(),
+        'total_professores': Professor.objects.count(),
+        'total_turmas': Turma.objects.count(),
+        'total_disciplinas': Disciplina.objects.count(),
+        'total_matriculas': Matricula.objects.count(),
+    }
+
     return render(
         request,
-        'painel.html'
+        'painel.html',
+        contexto
     )
 
 

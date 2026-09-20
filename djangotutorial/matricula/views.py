@@ -1,34 +1,48 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib import messages
+from django.db.models import Q
 
 from .models import Matricula
 from .forms import MatriculaForm
 
 
 @login_required
-@permission_required(
-    'matricula.view_matricula',
-    raise_exception=True
-)
+@permission_required('matricula.view_matricula', raise_exception=True)
 def listar_matriculas(request):
 
-    matriculas = Matricula.objects.all()
+    q = request.GET.get('q', '').strip()
+
+    matriculas = Matricula.objects.select_related(
+        'pessoa',
+        'turma',
+        'turma__curso'
+    )
+
+    if q:
+        matriculas = matriculas.filter(
+            Q(pessoa__nome__icontains=q) |
+            Q(pessoa__username__icontains=q) |
+            Q(turma__nome__icontains=q) |
+            Q(turma__curso__nome__icontains=q)
+        )
+
+    matriculas = matriculas.order_by(
+        '-data_matricula'
+    )
 
     return render(
         request,
         'matricula/listar.html',
         {
-            'matriculas': matriculas
+            'matriculas': matriculas,
+            'q': q
         }
     )
 
 
 @login_required
-@permission_required(
-    'matricula.add_matricula',
-    raise_exception=True
-)
+@permission_required('matricula.add_matricula', raise_exception=True)
 def criar_matricula(request):
 
     if request.method == 'POST':
@@ -53,17 +67,12 @@ def criar_matricula(request):
     return render(
         request,
         'matricula/criar.html',
-        {
-            'form': form
-        }
+        {'form': form}
     )
 
 
 @login_required
-@permission_required(
-    'matricula.change_matricula',
-    raise_exception=True
-)
+@permission_required('matricula.change_matricula', raise_exception=True)
 def editar_matricula(request, id):
 
     matricula = get_object_or_404(
@@ -109,31 +118,27 @@ def editar_matricula(request, id):
 
 
 @login_required
-@permission_required(
-    'matricula.view_matricula',
-    raise_exception=True
-)
+@permission_required('matricula.view_matricula', raise_exception=True)
 def detalhar_matricula(request, id):
 
     matricula = get_object_or_404(
-        Matricula,
+        Matricula.objects.select_related(
+            'pessoa',
+            'turma',
+            'turma__curso'
+        ),
         id=id
     )
 
     return render(
         request,
         'matricula/detalhes.html',
-        {
-            'matricula': matricula
-        }
+        {'matricula': matricula}
     )
 
 
 @login_required
-@permission_required(
-    'matricula.delete_matricula',
-    raise_exception=True
-)
+@permission_required('matricula.delete_matricula', raise_exception=True)
 def deletar_matricula(request, id):
 
     matricula = get_object_or_404(
@@ -157,7 +162,5 @@ def deletar_matricula(request, id):
     return render(
         request,
         'matricula/deletar.html',
-        {
-            'matricula': matricula
-        }
+        {'matricula': matricula}
     )

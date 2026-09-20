@@ -1,34 +1,42 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib import messages
+from django.db.models import Q
 
 from .models import Professor
 from .forms import ProfessorForm
 
 
 @login_required
-@permission_required(
-    'professor.view_professor',
-    raise_exception=True
-)
+@permission_required('professor.view_professor', raise_exception=True)
 def listar_professores(request):
 
+    q = request.GET.get('q', '').strip()
+
     professores = Professor.objects.all()
+
+    if q:
+        professores = professores.filter(
+            Q(nome__icontains=q) |
+            Q(email__icontains=q) |
+            Q(formacao__icontains=q) |
+            Q(titulacao__icontains=q)
+        )
+
+    professores = professores.order_by('nome')
 
     return render(
         request,
         'professor/listar.html',
         {
-            'professores': professores
+            'professores': professores,
+            'q': q
         }
     )
 
 
 @login_required
-@permission_required(
-    'professor.add_professor',
-    raise_exception=True
-)
+@permission_required('professor.add_professor', raise_exception=True)
 def criar_professor(request):
 
     if request.method == 'POST':
@@ -53,23 +61,15 @@ def criar_professor(request):
     return render(
         request,
         'professor/criar.html',
-        {
-            'form': form
-        }
+        {'form': form}
     )
 
 
 @login_required
-@permission_required(
-    'professor.change_professor',
-    raise_exception=True
-)
+@permission_required('professor.change_professor', raise_exception=True)
 def editar_professor(request, id):
 
-    professor = get_object_or_404(
-        Professor,
-        id=id
-    )
+    professor = get_object_or_404(Professor, id=id)
 
     if request.method == 'POST':
 
@@ -94,9 +94,7 @@ def editar_professor(request, id):
 
     else:
 
-        form = ProfessorForm(
-            instance=professor
-        )
+        form = ProfessorForm(instance=professor)
 
     return render(
         request,
@@ -109,10 +107,7 @@ def editar_professor(request, id):
 
 
 @login_required
-@permission_required(
-    'professor.view_professor',
-    raise_exception=True
-)
+@permission_required('professor.view_professor', raise_exception=True)
 def detalhar_professor(request, id):
 
     professor = get_object_or_404(
@@ -123,17 +118,12 @@ def detalhar_professor(request, id):
     return render(
         request,
         'professor/detalhes.html',
-        {
-            'professor': professor
-        }
+        {'professor': professor}
     )
 
 
 @login_required
-@permission_required(
-    'professor.delete_professor',
-    raise_exception=True
-)
+@permission_required('professor.delete_professor', raise_exception=True)
 def deletar_professor(request, id):
 
     professor = get_object_or_404(
@@ -157,7 +147,5 @@ def deletar_professor(request, id):
     return render(
         request,
         'professor/deletar.html',
-        {
-            'professor': professor
-        }
+        {'professor': professor}
     )

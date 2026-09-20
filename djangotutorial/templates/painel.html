@@ -8,97 +8,134 @@ Painel - Sistema Acadêmico
 
 {% block content %}
 
-<!-- CABEÇALHO -->
+
+<!-- =========================================================
+     CABEÇALHO
+========================================================= -->
+
 <div class="mb-4">
 
     <p class="text-muted mb-1">
-        Visão geral
+        Sistema Acadêmico
     </p>
 
     <h1 class="h3 mb-2">
-        Painel Acadêmico
-    </h1>
 
-    <p class="text-muted">
-
-        Bem-vindo,
+        Olá,
 
         {% if request.user.nome %}
-
-            <strong>
-                {{ request.user.nome }}
-            </strong>
-
+            {{ request.user.nome }}
         {% else %}
-
-            <strong>
-                {{ request.user.username }}
-            </strong>
-
+            {{ request.user.username }}
         {% endif %}
 
-        .
+        👋
+
+    </h1>
+
+    <p class="text-muted mb-0">
+
+        Bem-vindo ao painel de gerenciamento acadêmico.
+
+        {% if request.user.is_superuser %}
+            Você está conectado como administrador do sistema.
+        {% elif request.user.is_staff %}
+            Você está conectado como membro da equipe.
+        {% else %}
+            As opções disponíveis abaixo dependem das permissões da sua conta.
+        {% endif %}
 
     </p>
 
 </div>
 
 
-<!-- CARDS -->
+<!-- =========================================================
+     CARDS
+========================================================= -->
+
 <div class="row g-4">
 
 
     <!-- CURSOS -->
+
     {% if perms.curso.view_curso %}
 
-        <div class="col-lg-4 col-md-6">
+        <div class="col-sm-6 col-xl-4">
 
-            <div class="card h-100 shadow-sm">
+            <div class="card shadow-sm border-0 h-100">
 
-                <div class="card-body">
+                <div class="card-body p-4">
 
                     <div
-                        class="d-flex
-                               justify-content-between
-                               align-items-start"
+                        class="
+                            d-flex
+                            justify-content-between
+                            align-items-start
+                            mb-4
+                        "
                     >
 
                         <div>
 
                             <p class="text-muted mb-1">
-                                Gestão acadêmica
+                                Cursos
                             </p>
 
-                            <h4>
-                                Cursos
-                            </h4>
+                            <h2 class="display-6 fw-semibold mb-0">
+                                {{ total_cursos }}
+                            </h2>
 
                         </div>
 
 
-                        <div class="fs-2 text-primary">
+                        <div
+                            class="
+                                d-flex
+                                align-items-center
+                                justify-content-center
+                                rounded-circle
+                                bg-primary-subtle
+                                text-primary
+                            "
+                            style="
+                                width: 52px;
+                                height: 52px;
+                            "
+                        >
 
-                            <i class="bi bi-journal-bookmark"></i>
+                            <i class="bi bi-mortarboard fs-4"></i>
 
                         </div>
 
                     </div>
 
 
-                    <p class="text-muted mt-3">
-
-                        Consulte e gerencie os cursos
-                        cadastrados no sistema.
-
-                    </p>
-
-
-                    <a
-                        href="{% url 'listar_cursos' %}"
-                        class="btn btn-primary"
+                    <div
+                        class="
+                            d-flex
+                            justify-content-between
+                            align-items-center
+                        "
                     >
-                        Acessar
-                    </a>
+
+                        <span class="text-muted small">
+                            Cursos cadastrados
+                        </span>
+
+
+                        <a
+                            href="{% url 'listar_cursos' %}"
+                            class="btn btn-sm btn-outline-primary"
+                        >
+
+                            Gerenciar
+
+                            <i class="bi bi-arrow-right ms-1"></i>
+
+                        </a>
+
+                    </div>
 
                 </div>
 
@@ -107,58 +144,88 @@ Painel - Sistema Acadêmico
         </div>
 
     {% endif %}
+
 
 
     <!-- PESSOAS -->
+
     {% if perms.pessoa.view_pessoa %}
 
-        <div class="col-lg-4 col-md-6">
+        <div class="col-sm-6 col-xl-4">
 
-            <div class="card h-100 shadow-sm">
+            <div class="card shadow-sm border-0 h-100">
 
-                <div class="card-body">
+                <div class="card-body p-4">
 
                     <div
-                        class="d-flex
-                               justify-content-between
-                               align-items-start"
+                        class="
+                            d-flex
+                            justify-content-between
+                            align-items-start
+                            mb-4
+                        "
                     >
 
                         <div>
 
                             <p class="text-muted mb-1">
-                                Usuários
+                                Pessoas
                             </p>
 
-                            <h4>
-                                Pessoas
-                            </h4>
+                            <h2 class="display-6 fw-semibold mb-0">
+                                {{ total_pessoas }}
+                            </h2>
 
                         </div>
 
-                        <div class="fs-2 text-success">
 
-                            <i class="bi bi-people"></i>
+                        <div
+                            class="
+                                d-flex
+                                align-items-center
+                                justify-content-center
+                                rounded-circle
+                                bg-success-subtle
+                                text-success
+                            "
+                            style="
+                                width: 52px;
+                                height: 52px;
+                            "
+                        >
+
+                            <i class="bi bi-people fs-4"></i>
 
                         </div>
 
                     </div>
 
 
-                    <p class="text-muted mt-3">
-
-                        Consulte as pessoas cadastradas
-                        no sistema acadêmico.
-
-                    </p>
-
-
-                    <a
-                        href="{% url 'listar_pessoas' %}"
-                        class="btn btn-success"
+                    <div
+                        class="
+                            d-flex
+                            justify-content-between
+                            align-items-center
+                        "
                     >
-                        Acessar
-                    </a>
+
+                        <span class="text-muted small">
+                            Pessoas cadastradas
+                        </span>
+
+
+                        <a
+                            href="{% url 'listar_pessoas' %}"
+                            class="btn btn-sm btn-outline-success"
+                        >
+
+                            Gerenciar
+
+                            <i class="bi bi-arrow-right ms-1"></i>
+
+                        </a>
+
+                    </div>
 
                 </div>
 
@@ -167,58 +234,88 @@ Painel - Sistema Acadêmico
         </div>
 
     {% endif %}
+
 
 
     <!-- PROFESSORES -->
+
     {% if perms.professor.view_professor %}
 
-        <div class="col-lg-4 col-md-6">
+        <div class="col-sm-6 col-xl-4">
 
-            <div class="card h-100 shadow-sm">
+            <div class="card shadow-sm border-0 h-100">
 
-                <div class="card-body">
+                <div class="card-body p-4">
 
                     <div
-                        class="d-flex
-                               justify-content-between
-                               align-items-start"
+                        class="
+                            d-flex
+                            justify-content-between
+                            align-items-start
+                            mb-4
+                        "
                     >
 
                         <div>
 
                             <p class="text-muted mb-1">
-                                Corpo docente
+                                Professores
                             </p>
 
-                            <h4>
-                                Professores
-                            </h4>
+                            <h2 class="display-6 fw-semibold mb-0">
+                                {{ total_professores }}
+                            </h2>
 
                         </div>
 
-                        <div class="fs-2 text-warning">
 
-                            <i class="bi bi-person-workspace"></i>
+                        <div
+                            class="
+                                d-flex
+                                align-items-center
+                                justify-content-center
+                                rounded-circle
+                                bg-info-subtle
+                                text-info
+                            "
+                            style="
+                                width: 52px;
+                                height: 52px;
+                            "
+                        >
+
+                            <i class="bi bi-person-workspace fs-4"></i>
 
                         </div>
 
                     </div>
 
 
-                    <p class="text-muted mt-3">
-
-                        Consulte os professores
-                        cadastrados.
-
-                    </p>
-
-
-                    <a
-                        href="{% url 'listar_professores' %}"
-                        class="btn btn-warning"
+                    <div
+                        class="
+                            d-flex
+                            justify-content-between
+                            align-items-center
+                        "
                     >
-                        Acessar
-                    </a>
+
+                        <span class="text-muted small">
+                            Professores cadastrados
+                        </span>
+
+
+                        <a
+                            href="{% url 'listar_professores' %}"
+                            class="btn btn-sm btn-outline-info"
+                        >
+
+                            Gerenciar
+
+                            <i class="bi bi-arrow-right ms-1"></i>
+
+                        </a>
+
+                    </div>
 
                 </div>
 
@@ -227,58 +324,88 @@ Painel - Sistema Acadêmico
         </div>
 
     {% endif %}
+
 
 
     <!-- TURMAS -->
+
     {% if perms.turma.view_turma %}
 
-        <div class="col-lg-4 col-md-6">
+        <div class="col-sm-6 col-xl-4">
 
-            <div class="card h-100 shadow-sm">
+            <div class="card shadow-sm border-0 h-100">
 
-                <div class="card-body">
+                <div class="card-body p-4">
 
                     <div
-                        class="d-flex
-                               justify-content-between
-                               align-items-start"
+                        class="
+                            d-flex
+                            justify-content-between
+                            align-items-start
+                            mb-4
+                        "
                     >
 
                         <div>
 
                             <p class="text-muted mb-1">
-                                Organização
+                                Turmas
                             </p>
 
-                            <h4>
-                                Turmas
-                            </h4>
+                            <h2 class="display-6 fw-semibold mb-0">
+                                {{ total_turmas }}
+                            </h2>
 
                         </div>
 
-                        <div class="fs-2 text-primary">
 
-                            <i class="bi bi-collection"></i>
+                        <div
+                            class="
+                                d-flex
+                                align-items-center
+                                justify-content-center
+                                rounded-circle
+                                bg-warning-subtle
+                                text-warning
+                            "
+                            style="
+                                width: 52px;
+                                height: 52px;
+                            "
+                        >
+
+                            <i class="bi bi-collection fs-4"></i>
 
                         </div>
 
                     </div>
 
 
-                    <p class="text-muted mt-3">
-
-                        Consulte as turmas e seus
-                        respectivos cursos.
-
-                    </p>
-
-
-                    <a
-                        href="{% url 'listar_turmas' %}"
-                        class="btn btn-primary"
+                    <div
+                        class="
+                            d-flex
+                            justify-content-between
+                            align-items-center
+                        "
                     >
-                        Acessar
-                    </a>
+
+                        <span class="text-muted small">
+                            Turmas cadastradas
+                        </span>
+
+
+                        <a
+                            href="{% url 'listar_turmas' %}"
+                            class="btn btn-sm btn-outline-warning"
+                        >
+
+                            Gerenciar
+
+                            <i class="bi bi-arrow-right ms-1"></i>
+
+                        </a>
+
+                    </div>
 
                 </div>
 
@@ -287,58 +414,88 @@ Painel - Sistema Acadêmico
         </div>
 
     {% endif %}
+
 
 
     <!-- DISCIPLINAS -->
+
     {% if perms.disciplina.view_disciplina %}
 
-        <div class="col-lg-4 col-md-6">
+        <div class="col-sm-6 col-xl-4">
 
-            <div class="card h-100 shadow-sm">
+            <div class="card shadow-sm border-0 h-100">
 
-                <div class="card-body">
+                <div class="card-body p-4">
 
                     <div
-                        class="d-flex
-                               justify-content-between
-                               align-items-start"
+                        class="
+                            d-flex
+                            justify-content-between
+                            align-items-start
+                            mb-4
+                        "
                     >
 
                         <div>
 
                             <p class="text-muted mb-1">
-                                Ensino
+                                Disciplinas
                             </p>
 
-                            <h4>
-                                Disciplinas
-                            </h4>
+                            <h2 class="display-6 fw-semibold mb-0">
+                                {{ total_disciplinas }}
+                            </h2>
 
                         </div>
 
-                        <div class="fs-2 text-success">
 
-                            <i class="bi bi-book"></i>
+                        <div
+                            class="
+                                d-flex
+                                align-items-center
+                                justify-content-center
+                                rounded-circle
+                                bg-danger-subtle
+                                text-danger
+                            "
+                            style="
+                                width: 52px;
+                                height: 52px;
+                            "
+                        >
+
+                            <i class="bi bi-book fs-4"></i>
 
                         </div>
 
                     </div>
 
 
-                    <p class="text-muted mt-3">
-
-                        Consulte disciplinas, professores
-                        e turmas relacionadas.
-
-                    </p>
-
-
-                    <a
-                        href="{% url 'listar_disciplinas' %}"
-                        class="btn btn-success"
+                    <div
+                        class="
+                            d-flex
+                            justify-content-between
+                            align-items-center
+                        "
                     >
-                        Acessar
-                    </a>
+
+                        <span class="text-muted small">
+                            Disciplinas cadastradas
+                        </span>
+
+
+                        <a
+                            href="{% url 'listar_disciplinas' %}"
+                            class="btn btn-sm btn-outline-danger"
+                        >
+
+                            Gerenciar
+
+                            <i class="bi bi-arrow-right ms-1"></i>
+
+                        </a>
+
+                    </div>
 
                 </div>
 
@@ -349,56 +506,86 @@ Painel - Sistema Acadêmico
     {% endif %}
 
 
+
     <!-- MATRÍCULAS -->
+
     {% if perms.matricula.view_matricula %}
 
-        <div class="col-lg-4 col-md-6">
+        <div class="col-sm-6 col-xl-4">
 
-            <div class="card h-100 shadow-sm">
+            <div class="card shadow-sm border-0 h-100">
 
-                <div class="card-body">
+                <div class="card-body p-4">
 
                     <div
-                        class="d-flex
-                               justify-content-between
-                               align-items-start"
+                        class="
+                            d-flex
+                            justify-content-between
+                            align-items-start
+                            mb-4
+                        "
                     >
 
                         <div>
 
                             <p class="text-muted mb-1">
-                                Estudantes
+                                Matrículas
                             </p>
 
-                            <h4>
-                                Matrículas
-                            </h4>
+                            <h2 class="display-6 fw-semibold mb-0">
+                                {{ total_matriculas }}
+                            </h2>
 
                         </div>
 
-                        <div class="fs-2 text-danger">
 
-                            <i class="bi bi-person-check"></i>
+                        <div
+                            class="
+                                d-flex
+                                align-items-center
+                                justify-content-center
+                                rounded-circle
+                                bg-secondary-subtle
+                                text-secondary
+                            "
+                            style="
+                                width: 52px;
+                                height: 52px;
+                            "
+                        >
+
+                            <i class="bi bi-person-check fs-4"></i>
 
                         </div>
 
                     </div>
 
 
-                    <p class="text-muted mt-3">
-
-                        Consulte e gerencie as matrículas
-                        dos estudantes.
-
-                    </p>
-
-
-                    <a
-                        href="{% url 'listar_matriculas' %}"
-                        class="btn btn-danger"
+                    <div
+                        class="
+                            d-flex
+                            justify-content-between
+                            align-items-center
+                        "
                     >
-                        Acessar
-                    </a>
+
+                        <span class="text-muted small">
+                            Matrículas registradas
+                        </span>
+
+
+                        <a
+                            href="{% url 'listar_matriculas' %}"
+                            class="btn btn-sm btn-outline-secondary"
+                        >
+
+                            Gerenciar
+
+                            <i class="bi bi-arrow-right ms-1"></i>
+
+                        </a>
+
+                    </div>
 
                 </div>
 
@@ -410,5 +597,178 @@ Painel - Sistema Acadêmico
 
 
 </div>
+
+
+
+<!-- =========================================================
+     USUÁRIO SEM PERMISSÕES ADMINISTRATIVAS
+========================================================= -->
+
+{% if not perms.curso.view_curso and not perms.pessoa.view_pessoa and not perms.professor.view_professor and not perms.turma.view_turma and not perms.disciplina.view_disciplina and not perms.matricula.view_matricula %}
+
+    <div class="card shadow-sm border-0 mt-4">
+
+        <div class="card-body text-center p-5">
+
+            <div
+                class="
+                    d-flex
+                    justify-content-center
+                    align-items-center
+                    rounded-circle
+                    bg-primary-subtle
+                    text-primary
+                    mx-auto
+                    mb-4
+                "
+                style="
+                    width: 72px;
+                    height: 72px;
+                "
+            >
+
+                <i class="bi bi-person-check fs-2"></i>
+
+            </div>
+
+
+            <h4 class="mb-2">
+                Sua conta está ativa
+            </h4>
+
+
+            <p class="text-muted mb-0">
+
+                Você está conectado ao Sistema Acadêmico.
+
+                No momento, sua conta não possui permissões
+                administrativas para gerenciar os registros acadêmicos.
+
+            </p>
+
+        </div>
+
+    </div>
+
+{% endif %}
+
+
+
+<!-- =========================================================
+     AÇÕES RÁPIDAS
+========================================================= -->
+
+{% if perms.curso.add_curso or perms.professor.add_professor or perms.turma.add_turma or perms.disciplina.add_disciplina or perms.matricula.add_matricula %}
+
+    <div class="card shadow-sm border-0 mt-4">
+
+        <div class="card-header bg-white py-3">
+
+            <div class="d-flex align-items-center gap-2">
+
+                <i class="bi bi-lightning-charge text-primary"></i>
+
+                <strong>
+                    Ações rápidas
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="card-body p-4">
+
+            <div class="d-flex flex-wrap gap-2">
+
+
+                {% if perms.curso.add_curso %}
+
+                    <a
+                        href="{% url 'criar_curso' %}"
+                        class="btn btn-outline-primary"
+                    >
+
+                        <i class="bi bi-plus-lg me-1"></i>
+
+                        Novo curso
+
+                    </a>
+
+                {% endif %}
+
+
+                {% if perms.professor.add_professor %}
+
+                    <a
+                        href="{% url 'criar_professor' %}"
+                        class="btn btn-outline-primary"
+                    >
+
+                        <i class="bi bi-person-plus me-1"></i>
+
+                        Novo professor
+
+                    </a>
+
+                {% endif %}
+
+
+                {% if perms.turma.add_turma %}
+
+                    <a
+                        href="{% url 'criar_turma' %}"
+                        class="btn btn-outline-primary"
+                    >
+
+                        <i class="bi bi-plus-lg me-1"></i>
+
+                        Nova turma
+
+                    </a>
+
+                {% endif %}
+
+
+                {% if perms.disciplina.add_disciplina %}
+
+                    <a
+                        href="{% url 'criar_disciplina' %}"
+                        class="btn btn-outline-primary"
+                    >
+
+                        <i class="bi bi-plus-lg me-1"></i>
+
+                        Nova disciplina
+
+                    </a>
+
+                {% endif %}
+
+
+                {% if perms.matricula.add_matricula %}
+
+                    <a
+                        href="{% url 'criar_matricula' %}"
+                        class="btn btn-outline-primary"
+                    >
+
+                        <i class="bi bi-person-plus me-1"></i>
+
+                        Nova matrícula
+
+                    </a>
+
+                {% endif %}
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+{% endif %}
+
 
 {% endblock %}
