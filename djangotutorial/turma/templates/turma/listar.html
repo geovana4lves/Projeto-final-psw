@@ -1,42 +1,127 @@
-{% extends "base.html" %}
-{% block title %}Lista de Turmas{% endblock %}
+{% extends "base_admin.html" %}
+
+{% block title %}Turmas - Sistema Acadêmico{% endblock %}
+
 {% block content %}
-    <h1>Lista de Turmas</h1>
-    <a href="{% url 'home' %}">Voltar</a>
+
+<div class="d-flex flex-column flex-md-row justify-content-between
+            align-items-md-center gap-3 mb-4">
+
+    <div>
+        <p class="text-muted mb-1">Gestão acadêmica</p>
+        <h1 class="h3 mb-1">Turmas</h1>
+        <p class="text-muted mb-0">
+            Consulte as turmas e seus respectivos cursos.
+        </p>
+    </div>
+
     {% if perms.turma.add_turma %}
-        <a href="{% url 'criar_turma' %}">Adicionar Nova Turma</a>
+        <a href="{% url 'criar_turma' %}" class="btn btn-primary">
+            <i class="bi bi-plus-lg me-1"></i>
+            Nova turma
+        </a>
     {% endif %}
-    <br><br>
-    <table border="1" cellpadding="8" cellspacing="0">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Curso</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for turma in turmas %}
-            <tr>
-                <td>{{ turma.id }}</td>
-                <td>{{ turma.nome }}</td>
-                <td>{{ turma.curso.nome }}</td>
-                <td>
-                    <a href="{% url 'detalhes_turma' turma.id %}">Ver</a>
-    {% if perms.turma.change_turma %}
-        | <a href="{% url 'editar_turma' turma.id %}">Editar</a>
-    {% endif %}
-    {% if perms.turma.delete_turma %}
-        | <a href="{% url 'deletar_turma' turma.id %}">Excluir</a>
-    {% endif %}
-                </td>
-            </tr>
-            {% empty %}
-            <tr>
-                <td colspan="4">Nenhuma turma cadastrada.</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+
+</div>
+
+<div class="card shadow-sm">
+
+    <div class="card-header bg-white py-3">
+        <i class="bi bi-collection text-primary me-2"></i>
+        <strong>Turmas cadastradas</strong>
+    </div>
+
+    <div class="card-body p-0">
+
+        {% if turmas %}
+
+            <div class="table-responsive">
+
+                <table class="table table-hover align-middle mb-0">
+
+                    <thead>
+                        <tr>
+                            <th class="ps-4">Turma</th>
+                            <th>Curso</th>
+                            <th>Capacidade</th>
+                            <th class="text-end pe-4">Ações</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        {% for turma in turmas %}
+
+                            <tr>
+
+                                <td class="ps-4">
+                                    <strong>{{ turma.nome }}</strong>
+                                </td>
+
+                                <td>{{ turma.curso.nome }}</td>
+
+                                <td>
+                                    {{ turma.capacidade }} alunos
+                                </td>
+
+                                <td class="text-end pe-4">
+
+                                    <div class="d-flex justify-content-end gap-1">
+
+                                        <a
+                                            href="{% url 'detalhes_turma' turma.id %}"
+                                            class="btn btn-sm btn-outline-primary"
+                                        >
+                                            <i class="bi bi-eye"></i>
+                                        </a>
+
+                                        {% if perms.turma.change_turma %}
+                                            <a
+                                                href="{% url 'editar_turma' turma.id %}"
+                                                class="btn btn-sm btn-outline-secondary"
+                                            >
+                                                <i class="bi bi-pencil"></i>
+                                            </a>
+                                        {% endif %}
+
+                                        {% if perms.turma.delete_turma %}
+                                            <a
+                                                href="{% url 'deletar_turma' turma.id %}"
+                                                class="btn btn-sm btn-outline-danger"
+                                            >
+                                                <i class="bi bi-trash"></i>
+                                            </a>
+                                        {% endif %}
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        {% else %}
+
+            <div class="text-center py-5">
+                <div class="fs-1 text-muted mb-3">
+                    <i class="bi bi-collection"></i>
+                </div>
+
+                <h5>Nenhuma turma cadastrada</h5>
+                <p class="text-muted">Ainda não existem turmas registradas.</p>
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
 {% endblock %}

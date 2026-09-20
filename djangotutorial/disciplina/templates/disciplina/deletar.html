@@ -1,10 +1,66 @@
-{% extends "base.html" %}
+{% extends "base_admin.html" %}
+
+{% block title %}Excluir Disciplina - Sistema Acadêmico{% endblock %}
+
 {% block content %}
-    <h1>Excluir Disciplina</h1>
-    <p>Tem certeza que deseja excluir "<strong>{{ disciplina.nome }}</strong>"?</p>
-    <form method="POST">
-        {% csrf_token %}
-        <button type="submit">Sim, Excluir</button>
-        <a href="{% url 'listar_disciplinas' %}">Cancelar</a>
-    </form>
+
+<div class="mb-4">
+
+    <div class="d-flex align-items-center gap-2 mb-2">
+        <a href="{% url 'detalhes_disciplina' disciplina.id %}"
+           class="btn btn-outline-secondary btn-sm">
+            <i class="bi bi-arrow-left"></i>
+        </a>
+
+        <span class="text-muted">Disciplinas</span>
+    </div>
+
+    <h1 class="h3 mb-1">Excluir Disciplina</h1>
+
+    <p class="text-muted mb-0">
+        Confirme a exclusão antes de continuar.
+    </p>
+
+</div>
+
+<div class="card shadow-sm border-danger" style="max-width:750px;">
+
+    <div class="card-body p-4">
+
+        <h4>
+            <i class="bi bi-exclamation-triangle text-danger me-2"></i>
+            Tem certeza?
+        </h4>
+
+        <p class="text-muted">
+            Você está prestes a excluir
+            <strong>{{ disciplina.nome }}</strong>.
+        </p>
+
+        <p class="text-danger">
+            Esta ação não poderá ser desfeita.
+        </p>
+
+        <hr>
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <button type="submit" class="btn btn-danger">
+                <i class="bi bi-trash me-1"></i>
+                Sim, excluir disciplina
+            </button>
+
+            <a href="{% url 'detalhes_disciplina' disciplina.id %}"
+               class="btn btn-outline-secondary">
+                Cancelar
+            </a>
+
+        </form>
+
+    </div>
+
+</div>
+
 {% endblock %}

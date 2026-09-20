@@ -1,11 +1,94 @@
-{% extends "base.html" %}
+{% extends "base_admin.html" %}
+
+{% block title %}Detalhes da Matrícula - Sistema Acadêmico{% endblock %}
+
 {% block content %}
-    <h1>Detalhes da Matrícula</h1>
-    <p><strong>Aluno(a):</strong> {{ matricula.pessoa.nome }}</p>
-    <p><strong>Turma:</strong> {{ matricula.turma.nome }}</p>
-    <p><strong>Data da Matrícula:</strong> {{ matricula.data_matricula }}</p>
-    <br>
-    <a href="{% url 'editar_matricula' matricula.id %}">Editar</a> |
-    <a href="{% url 'deletar_matricula' matricula.id %}">Excluir</a> |
-    <a href="{% url 'listar_matriculas' %}">Voltar para a lista</a>
+
+<div class="d-flex flex-column flex-md-row justify-content-between
+            align-items-md-center gap-3 mb-4">
+
+    <div>
+
+        <div class="d-flex align-items-center gap-2 mb-2">
+            <a href="{% url 'listar_matriculas' %}"
+               class="btn btn-outline-secondary btn-sm">
+                <i class="bi bi-arrow-left"></i>
+            </a>
+
+            <span class="text-muted">Matrículas</span>
+        </div>
+
+        <h1 class="h3 mb-1">Detalhes da Matrícula</h1>
+
+        <p class="text-muted mb-0">
+            Informações da matrícula selecionada.
+        </p>
+
+    </div>
+
+    <div class="d-flex gap-2">
+
+        {% if perms.matricula.change_matricula %}
+            <a
+                href="{% url 'editar_matricula' matricula.id %}"
+                class="btn btn-primary"
+            >
+                <i class="bi bi-pencil me-1"></i>
+                Editar
+            </a>
+        {% endif %}
+
+        {% if perms.matricula.delete_matricula %}
+            <a
+                href="{% url 'deletar_matricula' matricula.id %}"
+                class="btn btn-outline-danger"
+            >
+                <i class="bi bi-trash me-1"></i>
+                Excluir
+            </a>
+        {% endif %}
+
+    </div>
+
+</div>
+
+<div class="card shadow-sm">
+
+    <div class="card-header bg-white py-3">
+        <i class="bi bi-person-check text-primary me-2"></i>
+        <strong>Dados da matrícula</strong>
+    </div>
+
+    <div class="card-body p-4">
+
+        <div class="row g-4">
+
+            <div class="col-md-6">
+                <small class="text-muted d-block mb-1">Aluno(a)</small>
+                <strong>{{ matricula.pessoa.nome }}</strong>
+            </div>
+
+            <div class="col-md-6">
+                <small class="text-muted d-block mb-1">Turma</small>
+                <strong>{{ matricula.turma.nome }}</strong>
+            </div>
+
+            <div class="col-md-6">
+                <small class="text-muted d-block mb-1">Curso</small>
+                <strong>{{ matricula.turma.curso.nome }}</strong>
+            </div>
+
+            <div class="col-md-6">
+                <small class="text-muted d-block mb-1">Data da matrícula</small>
+                <strong>
+                    {{ matricula.data_matricula|date:"d/m/Y" }}
+                </strong>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
 {% endblock %}

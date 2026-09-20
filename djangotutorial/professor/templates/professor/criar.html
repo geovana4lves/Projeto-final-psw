@@ -1,11 +1,148 @@
-{% extends "base.html" %}
-{% block title %}Formulário de Professor{% endblock %}
+{% extends "base_admin.html" %}
+
+{% block title %}Cadastrar Professor - Sistema Acadêmico{% endblock %}
+
+{% block extra_css %}
+<style>
+    .admin-form-card { max-width:1000px; }
+
+    .admin-form label {
+        display:block;
+        font-weight:600;
+        margin-bottom:7px;
+    }
+
+    .admin-form input,
+    .admin-form select,
+    .admin-form textarea {
+        width:100%;
+        padding:11px 14px;
+        border:1px solid var(--bs-border-color);
+        border-radius:8px;
+        background:var(--bs-body-bg);
+        color:var(--bs-body-color);
+        outline:none;
+    }
+
+    .admin-form input:focus,
+    .admin-form select:focus,
+    .admin-form textarea:focus {
+        border-color:#0d6efd;
+        box-shadow:0 0 0 3px rgba(13,110,253,.12);
+    }
+
+    .form-field { margin-bottom:22px; }
+    .form-help { display:block;margin-top:6px;font-size:13px;color:var(--bs-secondary-color); }
+    .form-error { display:block;margin-top:6px;font-size:13px;color:#dc3545; }
+</style>
+{% endblock %}
+
 {% block content %}
-    <h1>{% if pessoa %}Editar Professor: {{ professor.nome }}{% else %}Criar Professor{% endif %}</h1>
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Salvar</button>
-        <a href="{% url 'listar_professores' %}">Cancelar</a>
-    </form>
+
+<div class="mb-4">
+
+    <div class="d-flex align-items-center gap-2 mb-2">
+        <a href="{% url 'listar_professores' %}"
+           class="btn btn-outline-secondary btn-sm">
+            <i class="bi bi-arrow-left"></i>
+        </a>
+
+        <span class="text-muted">Professores</span>
+    </div>
+
+    <h1 class="h3 mb-1">Cadastrar Professor</h1>
+
+    <p class="text-muted mb-0">
+        Preencha os dados do novo professor.
+    </p>
+
+</div>
+
+<div class="card shadow-sm admin-form-card">
+
+    <div class="card-header bg-white py-3">
+        <i class="bi bi-person-plus text-primary me-2"></i>
+        <strong>Dados do professor</strong>
+    </div>
+
+    <div class="card-body p-4">
+
+        {% if form.non_field_errors %}
+            <div class="alert alert-danger">
+                {% for error in form.non_field_errors %}
+                    <div>{{ error }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <form method="POST" class="admin-form">
+
+            {% csrf_token %}
+
+            <div class="row">
+
+                {% for field in form %}
+
+                    {% if field.is_hidden %}
+
+                        {{ field }}
+
+                    {% else %}
+
+                        <div class="col-md-6">
+
+                            <div class="form-field">
+
+                                <label for="{{ field.id_for_label }}">
+                                    {{ field.label }}
+
+                                    {% if field.field.required %}
+                                        <span class="text-danger">*</span>
+                                    {% endif %}
+                                </label>
+
+                                {{ field }}
+
+                                {% if field.help_text %}
+                                    <small class="form-help">
+                                        {{ field.help_text|safe }}
+                                    </small>
+                                {% endif %}
+
+                                {% for error in field.errors %}
+                                    <small class="form-error">{{ error }}</small>
+                                {% endfor %}
+
+                            </div>
+
+                        </div>
+
+                    {% endif %}
+
+                {% endfor %}
+
+            </div>
+
+            <div class="d-flex flex-column flex-sm-row gap-2">
+
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-check-lg me-1"></i>
+                    Salvar professor
+                </button>
+
+                <a
+                    href="{% url 'listar_professores' %}"
+                    class="btn btn-outline-secondary"
+                >
+                    Cancelar
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
 {% endblock %}

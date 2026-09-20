@@ -1,11 +1,282 @@
-{% extends "base.html" %}
-{% block title %}Formulário de Curso{% endblock %}
+{% extends "base_admin.html" %}
+
+
+{% block title %}
+Cadastrar Curso - Sistema Acadêmico
+{% endblock %}
+
+
+{% block extra_css %}
+
+<style>
+
+    .course-form-card {
+        max-width: 900px;
+    }
+
+    .course-form label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 7px;
+    }
+
+    .course-form input,
+    .course-form select,
+    .course-form textarea {
+        width: 100%;
+        padding: 11px 14px;
+        border: 1px solid var(--bs-border-color);
+        border-radius: 8px;
+        background: var(--bs-body-bg);
+        color: var(--bs-body-color);
+        outline: none;
+        transition: 0.2s;
+    }
+
+    .course-form input:focus,
+    .course-form select:focus,
+    .course-form textarea:focus {
+        border-color: #0d6efd;
+        box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.12);
+    }
+
+    .course-form-field {
+        margin-bottom: 22px;
+    }
+
+    .course-form-help {
+        display: block;
+        margin-top: 6px;
+        font-size: 13px;
+        color: var(--bs-secondary-color);
+    }
+
+    .course-form-error {
+        display: block;
+        margin-top: 6px;
+        font-size: 13px;
+        color: #dc3545;
+    }
+
+</style>
+
+{% endblock %}
+
+
 {% block content %}
-    <h1>{% if curso %}Editar Curso: {{ curso.nome }}{% else %}Criar Curso{% endif %}</h1>
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Salvar</button>
-        <a href="{% url 'listar_cursos' %}">Cancelar</a>
-    </form>
+
+
+<div class="mb-4">
+
+
+    <div class="d-flex align-items-center gap-2 mb-2">
+
+        <a
+            href="{% url 'listar_cursos' %}"
+            class="btn btn-outline-secondary btn-sm"
+        >
+
+            <i class="bi bi-arrow-left"></i>
+
+        </a>
+
+
+        <span class="text-muted">
+            Cursos
+        </span>
+
+    </div>
+
+
+    <h1 class="h3 mb-1">
+        Cadastrar Curso
+    </h1>
+
+
+    <p class="text-muted mb-0">
+        Preencha as informações abaixo para adicionar um novo curso ao sistema.
+    </p>
+
+
+</div>
+
+
+
+<div class="card shadow-sm course-form-card">
+
+
+    <div class="card-header bg-white py-3">
+
+
+        <div class="d-flex align-items-center gap-2">
+
+            <i class="bi bi-journal-plus text-primary"></i>
+
+            <strong>
+                Informações do curso
+            </strong>
+
+        </div>
+
+
+    </div>
+
+
+
+    <div class="card-body p-4">
+
+
+        {% if form.non_field_errors %}
+
+            <div class="alert alert-danger">
+
+                {% for error in form.non_field_errors %}
+
+                    <div>
+                        {{ error }}
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% endif %}
+
+
+
+        <form
+            method="POST"
+            class="course-form"
+        >
+
+            {% csrf_token %}
+
+
+
+            <div class="row">
+
+
+                {% for field in form %}
+
+
+                    {% if field.is_hidden %}
+
+
+                        {{ field }}
+
+
+                    {% else %}
+
+
+                        <div class="col-md-6">
+
+
+                            <div class="course-form-field">
+
+
+                                <label for="{{ field.id_for_label }}">
+
+                                    {{ field.label }}
+
+                                    {% if field.field.required %}
+
+                                        <span class="text-danger">
+                                            *
+                                        </span>
+
+                                    {% endif %}
+
+                                </label>
+
+
+
+                                {{ field }}
+
+
+
+                                {% if field.help_text %}
+
+                                    <small class="course-form-help">
+
+                                        {{ field.help_text|safe }}
+
+                                    </small>
+
+                                {% endif %}
+
+
+
+                                {% for error in field.errors %}
+
+                                    <small class="course-form-error">
+
+                                        {{ error }}
+
+                                    </small>
+
+                                {% endfor %}
+
+
+                            </div>
+
+
+                        </div>
+
+
+                    {% endif %}
+
+
+                {% endfor %}
+
+
+            </div>
+
+
+
+            <div
+                class="
+                    d-flex
+                    flex-column
+                    flex-sm-row
+                    gap-2
+                    mt-3
+                "
+            >
+
+
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                >
+
+                    <i class="bi bi-check-lg me-1"></i>
+
+                    Salvar curso
+
+                </button>
+
+
+
+                <a
+                    href="{% url 'listar_cursos' %}"
+                    class="btn btn-outline-secondary"
+                >
+
+                    Cancelar
+
+                </a>
+
+
+            </div>
+
+
+        </form>
+
+
+    </div>
+
+
+</div>
+
+
 {% endblock %}

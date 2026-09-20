@@ -1,41 +1,157 @@
-{% extends "base.html" %}
+{% extends "base_admin.html" %}
+
+{% block title %}Professores - Sistema Acadêmico{% endblock %}
+
 {% block content %}
-    <h1>Lista de Professores</h1>
-    <a href="{% url 'home' %}">Voltar</a>
+
+<div class="d-flex flex-column flex-md-row
+            justify-content-between align-items-md-center gap-3 mb-4">
+
+    <div>
+        <p class="text-muted mb-1">Gestão acadêmica</p>
+        <h1 class="h3 mb-1">Professores</h1>
+        <p class="text-muted mb-0">
+            Consulte e gerencie os professores cadastrados.
+        </p>
+    </div>
+
     {% if perms.professor.add_professor %}
-        <a href="{% url 'criar_professor' %}">Adicionar Novo Professor</a>
+        <a href="{% url 'criar_professor' %}" class="btn btn-primary">
+            <i class="bi bi-person-plus me-1"></i>
+            Novo professor
+        </a>
     {% endif %}
-    <br><br>
-    <table border="1" cellpadding="8" cellspacing="0">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Formação</th>
-                <th>Titulação</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for professor in professores %}
-            <tr>
-                <td>{{ professor.id }}</td>
-                <td>{{ professor.nome }}</td>
-                <td>{{ professor.formacao }}</td>
-                <td>{{ professor.titulacao }}</td>
-                <td>
-                    <a href="{% url 'detalhes_professor' professor.id %}">Ver</a>
-    {% if perms.professor.change_professor %}
-        | <a href="{% url 'editar_professor' professor.id %}">Editar</a>
-    {% endif %}
-    {% if perms.professor.delete_professor %}
-        | <a href="{% url 'deletar_professor' professor.id %}">Excluir</a>
-    {% endif %}
-                </td>
-            </tr>
-            {% empty %}
-            <tr><td colspan="5">Nenhum professor cadastrado.</td></tr>
-            {% endfor %}
-        </tbody>
-    </table>
+
+</div>
+
+<div class="card shadow-sm">
+
+    <div class="card-header bg-white py-3">
+        <i class="bi bi-person-workspace text-primary me-2"></i>
+        <strong>Professores cadastrados</strong>
+    </div>
+
+    <div class="card-body p-0">
+
+        {% if professores %}
+
+            <div class="table-responsive">
+
+                <table class="table table-hover align-middle mb-0">
+
+                    <thead>
+                        <tr>
+                            <th class="ps-4">Professor</th>
+                            <th>Formação</th>
+                            <th>Titulação</th>
+                            <th>Cidade / UF</th>
+                            <th class="text-end pe-4">Ações</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        {% for professor in professores %}
+
+                            <tr>
+
+                                <td class="ps-4">
+
+                                    <div class="d-flex align-items-center gap-3">
+
+                                        <div
+                                            class="d-flex align-items-center justify-content-center
+                                                   rounded-circle bg-primary-subtle text-primary"
+                                            style="width:42px;height:42px;min-width:42px;"
+                                        >
+                                            <i class="bi bi-person-workspace"></i>
+                                        </div>
+
+                                        <div>
+                                            <strong>{{ professor.nome }}</strong>
+                                            <small class="d-block text-muted">
+                                                {{ professor.email }}
+                                            </small>
+                                        </div>
+
+                                    </div>
+
+                                </td>
+
+                                <td>{{ professor.formacao }}</td>
+
+                                <td>{{ professor.titulacao }}</td>
+
+                                <td>
+                                    {{ professor.cidade }} - {{ professor.estado }}
+                                </td>
+
+                                <td class="text-end pe-4">
+
+                                    <div class="d-flex justify-content-end gap-1">
+
+                                        <a
+                                            href="{% url 'detalhes_professor' professor.id %}"
+                                            class="btn btn-sm btn-outline-primary"
+                                            title="Detalhes"
+                                        >
+                                            <i class="bi bi-eye"></i>
+                                        </a>
+
+                                        {% if perms.professor.change_professor %}
+                                            <a
+                                                href="{% url 'editar_professor' professor.id %}"
+                                                class="btn btn-sm btn-outline-secondary"
+                                                title="Editar"
+                                            >
+                                                <i class="bi bi-pencil"></i>
+                                            </a>
+                                        {% endif %}
+
+                                        {% if perms.professor.delete_professor %}
+                                            <a
+                                                href="{% url 'deletar_professor' professor.id %}"
+                                                class="btn btn-sm btn-outline-danger"
+                                                title="Excluir"
+                                            >
+                                                <i class="bi bi-trash"></i>
+                                            </a>
+                                        {% endif %}
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        {% else %}
+
+            <div class="text-center py-5">
+
+                <div class="fs-1 text-muted mb-3">
+                    <i class="bi bi-person-workspace"></i>
+                </div>
+
+                <h5>Nenhum professor cadastrado</h5>
+
+                <p class="text-muted">
+                    Ainda não existem professores cadastrados.
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
 {% endblock %}

@@ -1,41 +1,161 @@
-{% extends "base.html" %}
+{% extends "base_admin.html" %}
+
+{% block title %}Pessoas - Sistema Acadêmico{% endblock %}
+
 {% block content %}
-    <h1>Lista de Alunos</h1>
-    <a href="{% url 'home' %}">Voltar</a>
+
+<div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
+
+    <div>
+        <p class="text-muted mb-1">Gestão acadêmica</p>
+        <h1 class="h3 mb-1">Pessoas</h1>
+        <p class="text-muted mb-0">
+            Consulte e gerencie as pessoas cadastradas no sistema.
+        </p>
+    </div>
+
     {% if perms.pessoa.add_pessoa %}
-        <a href="{% url 'criar_pessoa' %}">Adicionar Novo Aluno</a>
+        <a href="{% url 'criar_pessoa' %}" class="btn btn-primary">
+            <i class="bi bi-person-plus me-1"></i>
+            Nova pessoa
+        </a>
     {% endif %}
-    <br><br>
-    <table border="1" cellpadding="8" cellspacing="0">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>CPF</th>
-                <th>Cidade/UF</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for pessoa in pessoas %}
-            <tr>
-                <td>{{ pessoa.id }}</td>
-                <td>{{ pessoa.nome }}</td>
-                <td>{{ pessoa.cpf }}</td>
-                <td>{{ pessoa.cidade }} - {{ pessoa.estado }}</td>
-                <td>
-                    <a href="{% url 'detalhes_pessoa' pessoa.id %}">Ver</a>
-    {% if perms.pessoa.change_pessoa %}
-        | <a href="{% url 'editar_pessoa' pessoa.id %}">Editar</a>
-    {% endif %}
-    {% if perms.pessoa.delete_pessoa %}
-        | <a href="{% url 'deletar_pessoa' pessoa.id %}">Excluir</a>
-    {% endif %}
-                </td>
-            </tr>
-            {% empty %}
-            <tr><td colspan="5">Nenhum aluno cadastrada.</td></tr>
-            {% endfor %}
-        </tbody>
-    </table>
+
+</div>
+
+<div class="card shadow-sm">
+
+    <div class="card-header bg-white py-3">
+        <div class="d-flex align-items-center gap-2">
+            <i class="bi bi-people text-primary"></i>
+            <strong>Pessoas cadastradas</strong>
+        </div>
+    </div>
+
+    <div class="card-body p-0">
+
+        {% if pessoas %}
+
+            <div class="table-responsive">
+
+                <table class="table table-hover align-middle mb-0">
+
+                    <thead>
+                        <tr>
+                            <th class="ps-4">Nome</th>
+                            <th>Usuário</th>
+                            <th>CPF</th>
+                            <th>Cidade / UF</th>
+                            <th class="text-end pe-4">Ações</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        {% for pessoa in pessoas %}
+
+                            <tr>
+
+                                <td class="ps-4">
+
+                                    <div class="d-flex align-items-center gap-3">
+
+                                        <div
+                                            class="d-flex align-items-center justify-content-center
+                                                   rounded-circle bg-primary-subtle text-primary"
+                                            style="width:42px;height:42px;min-width:42px;"
+                                        >
+                                            <i class="bi bi-person"></i>
+                                        </div>
+
+                                        <div>
+                                            <strong>{{ pessoa.nome }}</strong>
+
+                                            {% if pessoa.email %}
+                                                <small class="d-block text-muted">
+                                                    {{ pessoa.email }}
+                                                </small>
+                                            {% endif %}
+                                        </div>
+
+                                    </div>
+
+                                </td>
+
+                                <td>{{ pessoa.username }}</td>
+
+                                <td>{{ pessoa.cpf }}</td>
+
+                                <td>
+                                    {{ pessoa.cidade }} - {{ pessoa.estado }}
+                                </td>
+
+                                <td class="text-end pe-4">
+
+                                    <div class="d-flex justify-content-end gap-1">
+
+                                        <a
+                                            href="{% url 'detalhes_pessoa' pessoa.id %}"
+                                            class="btn btn-sm btn-outline-primary"
+                                            title="Detalhes"
+                                        >
+                                            <i class="bi bi-eye"></i>
+                                        </a>
+
+                                        {% if perms.pessoa.change_pessoa %}
+                                            <a
+                                                href="{% url 'editar_pessoa' pessoa.id %}"
+                                                class="btn btn-sm btn-outline-secondary"
+                                                title="Editar"
+                                            >
+                                                <i class="bi bi-pencil"></i>
+                                            </a>
+                                        {% endif %}
+
+                                        {% if perms.pessoa.delete_pessoa %}
+                                            <a
+                                                href="{% url 'deletar_pessoa' pessoa.id %}"
+                                                class="btn btn-sm btn-outline-danger"
+                                                title="Excluir"
+                                            >
+                                                <i class="bi bi-trash"></i>
+                                            </a>
+                                        {% endif %}
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        {% else %}
+
+            <div class="text-center py-5">
+
+                <div class="fs-1 text-muted mb-3">
+                    <i class="bi bi-people"></i>
+                </div>
+
+                <h5>Nenhuma pessoa cadastrada</h5>
+
+                <p class="text-muted">
+                    Ainda não existem pessoas cadastradas no sistema.
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
 {% endblock %}

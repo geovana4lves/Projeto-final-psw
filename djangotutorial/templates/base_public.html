@@ -1,0 +1,594 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+
+    <meta charset="utf-8">
+
+    <meta
+        http-equiv="X-UA-Compatible"
+        content="IE=edge"
+    >
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    >
+
+
+    <title>
+        {% block title %}
+            Sistema Acadêmico
+        {% endblock %}
+    </title>
+
+
+    <!-- Bootstrap do Eduleb -->
+    <link
+        rel="stylesheet"
+        href="{% static 'eduleb/assets/bootstrap/css/bootstrap.min.css' %}"
+    >
+
+
+    <!-- Fontes usadas pelo Eduleb -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{% static 'eduleb/assets/fonts/font-awesome.min.css' %}"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{% static 'eduleb/assets/fonts/themify-icons.css' %}"
+    >
+
+
+    <!-- Owl Carousel -->
+    <link
+        rel="stylesheet"
+        href="{% static 'eduleb/assets/owlcarousel/css/owl.carousel.css' %}"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{% static 'eduleb/assets/owlcarousel/css/owl.theme.css' %}"
+    >
+
+
+    <!-- Menu mobile -->
+    <link
+        rel="stylesheet"
+        href="{% static 'eduleb/assets/css/jquery-simple-mobilemenu.css' %}"
+    >
+
+
+    <!-- Magnific Popup -->
+    <link
+        rel="stylesheet"
+        href="{% static 'eduleb/assets/css/magnific-popup.css' %}"
+    >
+
+
+    <!-- Animações -->
+    <link
+        rel="stylesheet"
+        href="{% static 'eduleb/assets/css/animate.css' %}"
+    >
+
+
+    <!-- CSS principal do Eduleb -->
+    <link
+        rel="stylesheet"
+        href="{% static 'eduleb/assets/css/style.css' %}"
+    >
+
+<style>
+
+    .sga-logo {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+        color: #1e1e2f;
+        font-size: 20px;
+        font-weight: 700;
+        font-family: "Jost", sans-serif;
+    }
+
+    .sga-logo span {
+        background: #2eca7f;
+        color: white;
+        width: 42px;
+        height: 42px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
+        font-size: 16px;
+        font-weight: 700;
+    }
+
+    .sga-logo:hover {
+        color: #2eca7f;
+    }
+
+</style>
+
+    {% block extra_css %}
+    {% endblock %}
+
+</head>
+
+
+<body>
+
+
+    <!-- PRELOADER -->
+    <div class="preloaders">
+        <span class="loader"></span>
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- CABEÇALHO / NAVEGAÇÃO     -->
+    <!-- ========================= -->
+
+    <div
+        id="navigation"
+        class="navbar-light bg-faded site-navigation"
+    >
+
+        <div class="container-fluid">
+
+            <div class="row">
+
+
+                <!-- LOGO -->
+               <div class="site-logo">
+
+    <a
+        href="{% url 'home' %}"
+        class="sga-logo"
+    >
+        <span>SGA</span>
+        Sistema Acadêmico
+    </a>
+
+</div>
+
+                <!-- MENU PRINCIPAL -->
+                <div class="col-60 d-flex">
+
+                    <nav id="main-menu">
+
+                       <ul>
+
+    <li>
+        <a href="{% url 'home' %}">
+            Início
+        </a>
+    </li>
+
+    <li>
+        <a href="{% url 'home' %}#recursos">
+            Recursos
+        </a>
+    </li>
+
+    <li>
+        <a href="{% url 'home' %}#sobre">
+            Sobre
+        </a>
+    </li>
+
+    {% if request.user.is_authenticated %}
+
+        <li>
+            <a href="{% url 'home' %}">
+                Minha conta
+            </a>
+        </li>
+
+    {% endif %}
+
+</ul>
+
+                    </nav>
+
+                </div>
+
+
+                <!-- BOTÕES DO LADO DIREITO -->
+                <div
+                    class="col-20 d-none d-xl-block text-end align-self-center"
+                >
+
+                    {% if request.user.is_authenticated %}
+
+
+                        <span class="me-3">
+
+                            Olá,
+                            {{ request.user.username }}
+
+                        </span>
+
+
+                        <form
+                            action="{% url 'logout' %}"
+                            method="POST"
+                            style="display: inline;"
+                        >
+
+                            {% csrf_token %}
+
+                            <button
+                                type="submit"
+                                class="btn_one"
+                                style="border: none;"
+                            >
+                                Sair
+                            </button>
+
+                        </form>
+
+
+                    {% else %}
+
+
+                        <a
+                            href="{% url 'login' %}"
+                            class="header-btn"
+                        >
+                            Entrar
+                        </a>
+
+
+                        <a
+                            href="{% url 'criar_pessoa' %}"
+                            class="btn_one"
+                        >
+                            Cadastrar-se
+                        </a>
+
+
+                    {% endif %}
+
+                </div>
+
+
+                <!-- MENU MOBILE -->
+                <ul class="mobile_menu">
+
+                    <li>
+
+                        <a href="{% url 'home' %}">
+                            Início
+                        </a>
+
+                    </li>
+
+
+                    {% if request.user.is_authenticated %}
+
+                        <li>
+
+                            <form
+                                action="{% url 'logout' %}"
+                                method="POST"
+                            >
+
+                                {% csrf_token %}
+
+                                <button type="submit">
+                                    Sair
+                                </button>
+
+                            </form>
+
+                        </li>
+
+                    {% else %}
+
+                        <li>
+
+                            <a href="{% url 'login' %}">
+                                Entrar
+                            </a>
+
+                        </li>
+
+
+                        <li>
+
+                            <a href="{% url 'criar_pessoa' %}">
+                                Cadastrar-se
+                            </a>
+
+                        </li>
+
+                    {% endif %}
+
+                </ul>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- CONTEÚDO DE CADA PÁGINA   -->
+    <!-- ========================= -->
+
+    <main>
+
+        {% if messages %}
+
+            <div class="container mt-4">
+
+                {% for message in messages %}
+
+                    <div
+                        class="
+                            alert
+                            {% if message.tags == 'error' %}
+                                alert-danger
+                            {% else %}
+                                alert-{{ message.tags }}
+                            {% endif %}
+                            alert-dismissible
+                            fade
+                            show
+                        "
+                        role="alert"
+                    >
+
+                        {{ message }}
+
+
+                        <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="alert"
+                            aria-label="Fechar"
+                        ></button>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% endif %}
+
+
+        {% block content %}
+        {% endblock %}
+
+    </main>
+
+
+    <!-- ========================= -->
+    <!-- RODAPÉ                    -->
+    <!-- ========================= -->
+
+    <div class="footer section-padding">
+
+        <div class="container">
+
+            <div class="row">
+
+
+                <div class="col-lg-5 col-sm-12">
+
+                    <div class="single_footer">
+
+                       <a
+    href="{% url 'home' %}"
+    class="sga-logo"
+>
+    <span>SGA</span>
+    Sistema Acadêmico
+</a>
+                        <p>
+                            Sistema de gestão acadêmica para organização
+                            de cursos, turmas, disciplinas, professores,
+                            estudantes e matrículas.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-lg-3 col-sm-6">
+
+                    <div class="single_footer">
+
+                        <h4>
+                            Sistema
+                        </h4>
+
+                        <ul>
+
+                            <li>
+
+                                <a href="{% url 'home' %}">
+                                    Página inicial
+                                </a>
+
+                            </li>
+
+
+                            {% if not request.user.is_authenticated %}
+
+                                <li>
+
+                                    <a href="{% url 'login' %}">
+                                        Entrar
+                                    </a>
+
+                                </li>
+
+                                <li>
+
+                                    <a href="{% url 'criar_pessoa' %}">
+                                        Cadastrar-se
+                                    </a>
+
+                                </li>
+
+                            {% endif %}
+
+                        </ul>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-lg-4 col-sm-6">
+
+                    <div class="single_footer">
+
+                        <h4>
+                            Gestão Acadêmica
+                        </h4>
+
+                        <p>
+                            Um ambiente para centralizar informações
+                            acadêmicas de forma organizada e segura.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- CRÉDITOS DO TEMPLATE -->
+    <div class="foot_copy">
+
+        <div class="footer_copyright">
+
+            <p>
+
+                &copy; 2026 Sistema Acadêmico.
+
+                Template por
+                <a href="https://bestwpware.com/">
+                    Bestwpware
+                </a>
+
+                • Distribuído por
+
+                <a href="https://themewagon.com">
+                    ThemeWagon
+                </a>
+
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- JAVASCRIPT DO EDULEB      -->
+    <!-- ========================= -->
+
+
+    <!-- jQuery -->
+    <script
+        src="{% static 'eduleb/assets/js/jquery-1.12.4.min.js' %}"
+    ></script>
+
+
+    <!-- Bootstrap -->
+    <script
+        src="{% static 'eduleb/assets/bootstrap/js/bootstrap.min.js' %}"
+    ></script>
+
+
+    <!-- Modernizr -->
+    <script
+        src="{% static 'eduleb/assets/js/modernizr-2.8.3.min.js' %}"
+    ></script>
+
+
+    <!-- Menu mobile -->
+    <script
+        src="{% static 'eduleb/assets/js/jquery-simple-mobilemenu.js' %}"
+    ></script>
+
+
+    <!-- Owl Carousel -->
+    <script
+        src="{% static 'eduleb/assets/owlcarousel/js/owl.carousel.min.js' %}"
+    ></script>
+
+
+    <!-- Magnific Popup -->
+    <script
+        src="{% static 'eduleb/assets/js/jquery.magnific-popup.min.js' %}"
+    ></script>
+
+
+    <!-- Inview -->
+    <script
+        src="{% static 'eduleb/assets/js/jquery.inview.min.js' %}"
+    ></script>
+
+
+    <!-- Scroll -->
+    <script
+        src="{% static 'eduleb/assets/js/scrolltopcontrol.js' %}"
+    ></script>
+
+
+    <!-- WOW animations -->
+    <script
+        src="{% static 'eduleb/assets/js/wow.min.js' %}"
+    ></script>
+
+
+    <!-- Scripts principais -->
+    <script
+        src="{% static 'eduleb/assets/js/scripts.js' %}"
+    ></script>
+
+
+    {% block extra_js %}
+    {% endblock %}
+
+
+</body>
+
+</html>

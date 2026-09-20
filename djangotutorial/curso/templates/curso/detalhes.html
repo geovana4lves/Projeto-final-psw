@@ -1,14 +1,228 @@
-{% extends "base.html" %}
-{% block title %}Detalhes do Curso{% endblock %}
+{% extends "base_admin.html" %}
+
+
+{% block title %}
+Detalhes do Curso - Sistema Acadêmico
+{% endblock %}
+
+
 {% block content %}
-    <h1>Detalhes do Curso</h1>
-    <p><strong>ID:</strong> {{ curso.id }}</p>
-    <p><strong>Nome:</strong> {{ curso.nome }}</p>
-    <p><strong>Duração:</strong> {{ curso.duracao }}</p>
-    <p><strong>Carga Horária Total:</strong> {{ curso.carga_horaria_total }}h</p>
-    <p><strong>Tipo:</strong> {{ curso.tipo }}</p>
-    <br>
-    <a href="{% url 'editar_curso' curso.id %}">Editar</a> |
-    <a href="{% url 'deletar_curso' curso.id %}">Excluir</a> |
-    <a href="{% url 'listar_cursos' %}">Voltar para a lista</a>
+
+
+<div
+    class="
+        d-flex
+        flex-column
+        flex-md-row
+        justify-content-between
+        align-items-md-center
+        gap-3
+        mb-4
+    "
+>
+
+
+    <div>
+
+
+        <div class="d-flex align-items-center gap-2 mb-2">
+
+
+            <a
+                href="{% url 'listar_cursos' %}"
+                class="btn btn-outline-secondary btn-sm"
+            >
+
+                <i class="bi bi-arrow-left"></i>
+
+            </a>
+
+
+            <span class="text-muted">
+                Cursos
+            </span>
+
+
+        </div>
+
+
+
+        <h1 class="h3 mb-1">
+
+            {{ curso.nome }}
+
+        </h1>
+
+
+        <p class="text-muted mb-0">
+
+            Informações completas do curso.
+
+        </p>
+
+
+    </div>
+
+
+
+    <div class="d-flex gap-2">
+
+
+        {% if perms.curso.change_curso %}
+
+            <a
+                href="{% url 'editar_curso' curso.id %}"
+                class="btn btn-primary"
+            >
+
+                <i class="bi bi-pencil me-1"></i>
+
+                Editar
+
+            </a>
+
+        {% endif %}
+
+
+
+        {% if perms.curso.delete_curso %}
+
+            <a
+                href="{% url 'deletar_curso' curso.id %}"
+                class="btn btn-outline-danger"
+            >
+
+                <i class="bi bi-trash me-1"></i>
+
+                Excluir
+
+            </a>
+
+        {% endif %}
+
+
+    </div>
+
+
+</div>
+
+
+
+<div class="card shadow-sm">
+
+
+    <div class="card-header bg-white py-3">
+
+        <div class="d-flex align-items-center gap-2">
+
+            <i class="bi bi-info-circle text-primary"></i>
+
+            <strong>
+                Dados do curso
+            </strong>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="card-body p-4">
+
+
+        <div class="row g-4">
+
+
+            <div class="col-md-6">
+
+
+                <small class="text-muted d-block mb-1">
+
+                    Nome
+
+                </small>
+
+
+                <strong>
+
+                    {{ curso.nome }}
+
+                </strong>
+
+
+            </div>
+
+
+
+            <div class="col-md-6">
+
+
+                <small class="text-muted d-block mb-1">
+
+                    Tipo
+
+                </small>
+
+
+                <strong>
+
+                    {{ curso.tipo }}
+
+                </strong>
+
+
+            </div>
+
+
+
+            <div class="col-md-6">
+
+
+                <small class="text-muted d-block mb-1">
+
+                    Duração
+
+                </small>
+
+
+                <strong>
+
+                    {{ curso.duracao }}
+
+                </strong>
+
+
+            </div>
+
+
+
+            <div class="col-md-6">
+
+
+                <small class="text-muted d-block mb-1">
+
+                    Carga horária total
+
+                </small>
+
+
+                <strong>
+
+                    {{ curso.carga_horaria_total }}
+
+                </strong>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
 {% endblock %}

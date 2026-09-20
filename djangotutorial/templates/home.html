@@ -1,21 +1,488 @@
-{% extends "base.html" %}
+{% extends "base_public.html" %}
 
-{% block title %}Início - Sistema Acadêmico{% endblock %}
+{% load static %}
+
+
+{% block title %}
+Sistema Acadêmico
+{% endblock %}
+
 
 {% block content %}
-    <h1>Sistema de Gestão Acadêmica</h1>
 
-    {% if not perms.pessoa and not perms.professor and not perms.curso and not perms.turma and not perms.disciplina and not perms.matricula %}
-        <p>Sua conta ainda não tem permissões. Peça a um administrador para incluí-la em um grupo.</p>
-    {% else %}
-        <p>Escolha uma opção:</p>
-        <ul>
-            {% if perms.curso.view_curso %}<li><a href="{% url 'listar_cursos' %}">Cursos</a></li>{% endif %}
-            {% if perms.pessoa.view_pessoa %}<li><a href="{% url 'listar_pessoas' %}">Alunos</a></li>{% endif %}
-            {% if perms.professor.view_professor %}<li><a href="{% url 'listar_professores' %}">Professores</a></li>{% endif %}
-            {% if perms.turma.view_turma %}<li><a href="{% url 'listar_turmas' %}">Turmas</a></li>{% endif %}
-            {% if perms.disciplina.view_disciplina %}<li><a href="{% url 'listar_disciplinas' %}">Disciplinas</a></li>{% endif %}
-            {% if perms.matricula.view_matricula %}<li><a href="{% url 'listar_matriculas' %}">Matrículas</a></li>{% endif %}
-        </ul>
-    {% endif %}
+
+<!-- ========================================= -->
+<!-- APRESENTAÇÃO PRINCIPAL / HERO              -->
+<!-- ========================================= -->
+
+<section
+    class="home_bg hb_height"
+    style="
+        background-image:
+        url('{% static "eduleb/assets/img/bg/home-bg.jpg" %}');
+        background-size: cover;
+        background-position: center center;
+    "
+>
+
+    <div class="container">
+
+        <div class="row align-items-center">
+
+
+            <!-- TEXTO -->
+            <div class="col-lg-6 col-sm-12">
+
+                <div class="hero-text ht_top">
+
+                    <h1>
+
+                        <span>
+                            Gestão Acadêmica
+                        </span>
+
+                        simples, organizada e acessível
+
+                    </h1>
+
+
+                    <p>
+
+                        Um ambiente desenvolvido para centralizar
+                        cursos, turmas, disciplinas, professores
+                        e matrículas em um único sistema.
+
+                    </p>
+
+                </div>
+
+
+                <div class="mt-4">
+
+                    {% if request.user.is_authenticated %}
+
+                        <p class="mb-3">
+
+                            Você está conectado como
+                            <strong>
+                                {{ request.user.username }}
+                            </strong>.
+
+                        </p>
+
+                    {% else %}
+
+                        <a
+                            href="{% url 'login' %}"
+                            class="btn_one"
+                        >
+                            Acessar o sistema
+                        </a>
+
+
+                        <a
+                            href="{% url 'criar_pessoa' %}"
+                            class="header-btn ms-3"
+                        >
+                            Criar conta
+                        </a>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <!-- IMAGEM -->
+            <div class="col-lg-6 col-sm-12">
+
+                <div class="hero-text-img">
+
+                    <img
+                        src="{% static 'eduleb/assets/img/home-img2.png' %}"
+                        class="img-fluid"
+                        alt="Sistema Acadêmico"
+                    >
+
+                    <div class="home_ps">
+
+                        <span class="ti-book"></span>
+
+                        <h2>
+                            SGA
+                        </h2>
+
+                        <p>
+                            Gestão Acadêmica
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ========================================= -->
+<!-- RECURSOS DO SISTEMA                       -->
+<!-- ========================================= -->
+
+<section
+    id="recursos"
+    class="top_cat__area section-padding"
+    style="
+        background-image:
+        url('{% static "eduleb/assets/img/bg/shape-1.png" %}');
+        background-size: cover;
+        background-position: center center;
+    "
+>
+
+    <div class="container">
+
+
+        <div class="section-title text-center">
+
+            <h2>
+                Tudo organizado em um só lugar
+            </h2>
+
+            <p>
+
+                O Sistema de Gestão Acadêmica reúne as principais
+                informações necessárias para acompanhar e organizar
+                a estrutura acadêmica.
+
+            </p>
+
+        </div>
+
+
+        <div class="row">
+
+
+            <!-- CURSOS -->
+            <div
+                class="col-lg-3 col-sm-6 col-xs-12
+                       wow fadeInUp"
+                data-wow-duration="1s"
+                data-wow-delay="0.2s"
+            >
+
+                <div class="single_tp">
+
+                    <span class="sc_one">
+                        01
+                    </span>
+
+                    <h3>
+                        Gestão de
+                        <br>
+                        Cursos
+                    </h3>
+
+                    <p>
+
+                        Organização dos cursos,
+                        duração e carga horária
+                        oferecidos pela instituição.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- TURMAS -->
+            <div
+                class="col-lg-3 col-sm-6 col-xs-12
+                       wow fadeInUp"
+                data-wow-duration="1s"
+                data-wow-delay="0.3s"
+            >
+
+                <div class="single_tp">
+
+                    <span class="sc_two">
+                        02
+                    </span>
+
+                    <h3>
+                        Gestão de
+                        <br>
+                        Turmas
+                    </h3>
+
+                    <p>
+
+                        Controle das turmas,
+                        capacidade e associação
+                        com seus respectivos cursos.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- DISCIPLINAS -->
+            <div
+                class="col-lg-3 col-sm-6 col-xs-12
+                       wow fadeInUp"
+                data-wow-duration="1s"
+                data-wow-delay="0.4s"
+            >
+
+                <div class="single_tp">
+
+                    <span class="sc_three">
+                        03
+                    </span>
+
+                    <h3>
+                        Gestão de
+                        <br>
+                        Disciplinas
+                    </h3>
+
+                    <p>
+
+                        Organização das disciplinas,
+                        carga horária, professores
+                        responsáveis e turmas.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- MATRÍCULAS -->
+            <div
+                class="col-lg-3 col-sm-6 col-xs-12
+                       wow fadeInUp"
+                data-wow-duration="1s"
+                data-wow-delay="0.5s"
+            >
+
+                <div class="single_tp">
+
+                    <span class="sc_four">
+                        04
+                    </span>
+
+                    <h3>
+                        Gestão de
+                        <br>
+                        Matrículas
+                    </h3>
+
+                    <p>
+
+                        Associação dos estudantes
+                        às turmas e acompanhamento
+                        das matrículas cadastradas.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ========================================= -->
+<!-- SOBRE O SISTEMA                           -->
+<!-- ========================================= -->
+
+<section
+    id="sobre"
+    class="ab_area section-padding"
+>
+
+    <div class="container">
+
+        <div class="row align-items-center">
+
+
+            <!-- IMAGEM -->
+            <div
+                class="col-lg-6 col-sm-12
+                       wow fadeInUp"
+                data-wow-duration="1s"
+                data-wow-delay="0.2s"
+            >
+
+                <div class="ab_img">
+
+                    <img
+                        src="{% static 'eduleb/assets/img/about1.png' %}"
+                        class="img-fluid"
+                        alt="Gestão acadêmica"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- TEXTO -->
+            <div
+                class="col-lg-6 col-sm-12
+                       wow fadeInUp"
+                data-wow-duration="1s"
+                data-wow-delay="0.1s"
+            >
+
+                <div class="ab_content">
+
+                    <h2>
+                        Um sistema pensado para a organização acadêmica
+                    </h2>
+
+
+                    <p>
+
+                        O Sistema de Gestão Acadêmica foi desenvolvido
+                        para facilitar o gerenciamento das informações
+                        de estudantes, professores, cursos, turmas
+                        e disciplinas.
+
+                    </p>
+
+
+                    <p>
+
+                        Após realizar o login, cada usuário poderá
+                        acessar os recursos disponíveis de acordo
+                        com as permissões atribuídas à sua conta.
+
+                    </p>
+
+
+                    <ul>
+
+                        <li>
+                            <span class="ti-check"></span>
+                            Informações centralizadas
+                        </li>
+
+                        <li>
+                            <span class="ti-check"></span>
+                            Controle de acesso por usuário
+                        </li>
+
+                        <li>
+                            <span class="ti-check"></span>
+                            Organização de cursos e turmas
+                        </li>
+
+                        <li>
+                            <span class="ti-check"></span>
+                            Gerenciamento de matrículas
+                        </li>
+
+                    </ul>
+
+
+                    {% if not request.user.is_authenticated %}
+
+                        <a
+                            href="{% url 'login' %}"
+                            class="btn_one mt-4"
+                        >
+                            Entrar no sistema
+                        </a>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ========================================= -->
+<!-- CHAMADA FINAL                             -->
+<!-- ========================================= -->
+
+<section class="section-padding bg-light">
+
+    <div class="container">
+
+        <div class="row justify-content-center">
+
+            <div class="col-lg-8 text-center">
+
+                <div class="section-title">
+
+                    <h2>
+                        Pronto para acessar?
+                    </h2>
+
+                    <p>
+
+                        Entre com sua conta para acessar o
+                        ambiente acadêmico.
+
+                    </p>
+
+
+                    {% if request.user.is_authenticated %}
+
+                        <p class="fw-bold">
+
+                            Você já está conectado como
+                            {{ request.user.username }}.
+
+                        </p>
+
+                    {% else %}
+
+                        <a
+                            href="{% url 'login' %}"
+                            class="btn_one"
+                        >
+                            Fazer login
+                        </a>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
 {% endblock %}

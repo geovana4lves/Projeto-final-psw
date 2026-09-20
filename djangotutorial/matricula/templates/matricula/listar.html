@@ -1,41 +1,135 @@
-{% extends "base.html" %}
+{% extends "base_admin.html" %}
+
+{% block title %}Matrículas - Sistema Acadêmico{% endblock %}
+
 {% block content %}
-    <h1>Lista de Matrículas</h1>
-    <a href="{% url 'home' %}">Voltar</a>
+
+<div class="d-flex flex-column flex-md-row justify-content-between
+            align-items-md-center gap-3 mb-4">
+
+    <div>
+        <p class="text-muted mb-1">Gestão acadêmica</p>
+        <h1 class="h3 mb-1">Matrículas</h1>
+        <p class="text-muted mb-0">
+            Consulte e gerencie as matrículas registradas.
+        </p>
+    </div>
+
     {% if perms.matricula.add_matricula %}
-        <a href="{% url 'criar_matricula' %}">Adicionar Nova Matrícula</a>
+        <a href="{% url 'criar_matricula' %}" class="btn btn-primary">
+            <i class="bi bi-person-plus me-1"></i>
+            Nova matrícula
+        </a>
     {% endif %}
-    <br><br>
-    <table border="1" cellpadding="8" cellspacing="0">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Aluno(a)</th>
-                <th>Turma</th>
-                <th>Data</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for matricula in matriculas %}
-            <tr>
-                <td>{{ matricula.id }}</td>
-                <td>{{ matricula.pessoa.nome }}</td>
-                <td>{{ matricula.turma.nome }}</td>
-                <td>{{ matricula.data_matricula }}</td>
-                <td>
-                    <a href="{% url 'detalhes_matricula' matricula.id %}">Ver</a>
-    {% if perms.matricula.change_matricula %}
-        | <a href="{% url 'editar_matricula' matricula.id %}">Editar</a>
-    {% endif %}
-    {% if perms.matricula.delete_matricula %}
-        | <a href="{% url 'deletar_matricula' matricula.id %}">Excluir</a>
-    {% endif %}
-                </td>
-            </tr>
-            {% empty %}
-            <tr><td colspan="5">Nenhuma matrícula registrada.</td></tr>
-            {% endfor %}
-        </tbody>
-    </table>
+
+</div>
+
+<div class="card shadow-sm">
+
+    <div class="card-header bg-white py-3">
+        <i class="bi bi-person-check text-primary me-2"></i>
+        <strong>Matrículas registradas</strong>
+    </div>
+
+    <div class="card-body p-0">
+
+        {% if matriculas %}
+
+            <div class="table-responsive">
+
+                <table class="table table-hover align-middle mb-0">
+
+                    <thead>
+                        <tr>
+                            <th class="ps-4">Aluno(a)</th>
+                            <th>Turma</th>
+                            <th>Curso</th>
+                            <th>Data</th>
+                            <th class="text-end pe-4">Ações</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        {% for matricula in matriculas %}
+
+                            <tr>
+
+                                <td class="ps-4">
+                                    <strong>{{ matricula.pessoa.nome }}</strong>
+                                </td>
+
+                                <td>{{ matricula.turma.nome }}</td>
+
+                                <td>{{ matricula.turma.curso.nome }}</td>
+
+                                <td>
+                                    {{ matricula.data_matricula|date:"d/m/Y" }}
+                                </td>
+
+                                <td class="text-end pe-4">
+
+                                    <div class="d-flex justify-content-end gap-1">
+
+                                        <a
+                                            href="{% url 'detalhes_matricula' matricula.id %}"
+                                            class="btn btn-sm btn-outline-primary"
+                                        >
+                                            <i class="bi bi-eye"></i>
+                                        </a>
+
+                                        {% if perms.matricula.change_matricula %}
+                                            <a
+                                                href="{% url 'editar_matricula' matricula.id %}"
+                                                class="btn btn-sm btn-outline-secondary"
+                                            >
+                                                <i class="bi bi-pencil"></i>
+                                            </a>
+                                        {% endif %}
+
+                                        {% if perms.matricula.delete_matricula %}
+                                            <a
+                                                href="{% url 'deletar_matricula' matricula.id %}"
+                                                class="btn btn-sm btn-outline-danger"
+                                            >
+                                                <i class="bi bi-trash"></i>
+                                            </a>
+                                        {% endif %}
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        {% else %}
+
+            <div class="text-center py-5">
+
+                <div class="fs-1 text-muted mb-3">
+                    <i class="bi bi-person-check"></i>
+                </div>
+
+                <h5>Nenhuma matrícula registrada</h5>
+
+                <p class="text-muted">
+                    Ainda não existem matrículas no sistema.
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
 {% endblock %}

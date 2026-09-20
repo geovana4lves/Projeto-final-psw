@@ -1,15 +1,83 @@
-{% extends "base.html" %}
-{% block title %}Detalhes da Turma{% endblock %}
+{% extends "base_admin.html" %}
+
+{% block title %}Detalhes da Turma - Sistema Acadêmico{% endblock %}
+
 {% block content %}
-    <h1>Detalhes da Turma</h1>
 
-    <p><strong>ID:</strong> {{ turma.id }}</p>
-    <p><strong>Nome:</strong> {{ turma.nome }}</p>
-    <p><strong>Capacidade:</strong> {{ turma.capacidade }} alunos</p>
-    <p><strong>Curso:</strong> {{ turma.curso.nome }}</p>
+<div class="d-flex flex-column flex-md-row justify-content-between
+            align-items-md-center gap-3 mb-4">
 
-    <br>
-    <a href="{% url 'editar_turma' turma.id %}">Editar</a> |
-    <a href="{% url 'deletar_turma' turma.id %}">Excluir</a> |
-    <a href="{% url 'listar_turmas' %}">Voltar para a lista</a>
+    <div>
+
+        <div class="d-flex align-items-center gap-2 mb-2">
+            <a href="{% url 'listar_turmas' %}"
+               class="btn btn-outline-secondary btn-sm">
+                <i class="bi bi-arrow-left"></i>
+            </a>
+
+            <span class="text-muted">Turmas</span>
+        </div>
+
+        <h1 class="h3 mb-1">{{ turma.nome }}</h1>
+
+        <p class="text-muted mb-0">
+            Informações completas da turma.
+        </p>
+
+    </div>
+
+    <div class="d-flex gap-2">
+
+        {% if perms.turma.change_turma %}
+            <a href="{% url 'editar_turma' turma.id %}"
+               class="btn btn-primary">
+                <i class="bi bi-pencil me-1"></i>
+                Editar
+            </a>
+        {% endif %}
+
+        {% if perms.turma.delete_turma %}
+            <a href="{% url 'deletar_turma' turma.id %}"
+               class="btn btn-outline-danger">
+                <i class="bi bi-trash me-1"></i>
+                Excluir
+            </a>
+        {% endif %}
+
+    </div>
+
+</div>
+
+<div class="card shadow-sm">
+
+    <div class="card-header bg-white py-3">
+        <i class="bi bi-info-circle text-primary me-2"></i>
+        <strong>Dados da turma</strong>
+    </div>
+
+    <div class="card-body p-4">
+
+        <div class="row g-4">
+
+            <div class="col-md-4">
+                <small class="text-muted d-block mb-1">Turma</small>
+                <strong>{{ turma.nome }}</strong>
+            </div>
+
+            <div class="col-md-4">
+                <small class="text-muted d-block mb-1">Curso</small>
+                <strong>{{ turma.curso.nome }}</strong>
+            </div>
+
+            <div class="col-md-4">
+                <small class="text-muted d-block mb-1">Capacidade</small>
+                <strong>{{ turma.capacidade }} alunos</strong>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
 {% endblock %}

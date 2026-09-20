@@ -1,12 +1,112 @@
-{% extends "base.html" %}
+{% extends "base_admin.html" %}
+
+{% block title %}Detalhes do Professor - Sistema Acadêmico{% endblock %}
+
 {% block content %}
-    <h1>Detalhes do Professor: {{ professor.nome }}</h1>
-    <p><strong>CPF:</strong> {{ professor.cpf }}</p>
-    <p><strong>Formação:</strong> {{ professor.formacao }}</p>
-    <p><strong>Titulação:</strong> {{ professor.titulacao }}</p>
-    <p><strong>Endereço:</strong> {{ professor.cidade }} - {{ professor.estado }}</p>
-    <br>
-    <a href="{% url 'editar_professor' professor.id %}">Editar</a> |
-    <a href="{% url 'deletar_professor' professor.id %}">Excluir</a> |
-    <a href="{% url 'listar_professores' %}">Voltar para a lista</a>
+
+<div class="d-flex flex-column flex-md-row justify-content-between
+            align-items-md-center gap-3 mb-4">
+
+    <div>
+
+        <div class="d-flex align-items-center gap-2 mb-2">
+            <a href="{% url 'listar_professores' %}"
+               class="btn btn-outline-secondary btn-sm">
+                <i class="bi bi-arrow-left"></i>
+            </a>
+
+            <span class="text-muted">Professores</span>
+        </div>
+
+        <h1 class="h3 mb-1">{{ professor.nome }}</h1>
+
+        <p class="text-muted mb-0">
+            Informações completas do professor.
+        </p>
+
+    </div>
+
+    <div class="d-flex gap-2">
+
+        {% if perms.professor.change_professor %}
+            <a
+                href="{% url 'editar_professor' professor.id %}"
+                class="btn btn-primary"
+            >
+                <i class="bi bi-pencil me-1"></i>
+                Editar
+            </a>
+        {% endif %}
+
+        {% if perms.professor.delete_professor %}
+            <a
+                href="{% url 'deletar_professor' professor.id %}"
+                class="btn btn-outline-danger"
+            >
+                <i class="bi bi-trash me-1"></i>
+                Excluir
+            </a>
+        {% endif %}
+
+    </div>
+
+</div>
+
+<div class="card shadow-sm">
+
+    <div class="card-header bg-white py-3">
+        <i class="bi bi-person-vcard text-primary me-2"></i>
+        <strong>Dados do professor</strong>
+    </div>
+
+    <div class="card-body p-4">
+
+        <div class="row g-4">
+
+            <div class="col-md-6">
+                <small class="text-muted d-block mb-1">Nome</small>
+                <strong>{{ professor.nome }}</strong>
+            </div>
+
+            <div class="col-md-6">
+                <small class="text-muted d-block mb-1">Usuário</small>
+                <strong>{{ professor.username }}</strong>
+            </div>
+
+            <div class="col-md-6">
+                <small class="text-muted d-block mb-1">E-mail</small>
+                <strong>{{ professor.email|default:"—" }}</strong>
+            </div>
+
+            <div class="col-md-6">
+                <small class="text-muted d-block mb-1">CPF</small>
+                <strong>{{ professor.cpf }}</strong>
+            </div>
+
+            <div class="col-md-6">
+                <small class="text-muted d-block mb-1">Formação</small>
+                <strong>{{ professor.formacao }}</strong>
+            </div>
+
+            <div class="col-md-6">
+                <small class="text-muted d-block mb-1">Titulação</small>
+                <strong>{{ professor.titulacao }}</strong>
+            </div>
+
+            <div class="col-md-6">
+                <small class="text-muted d-block mb-1">Cidade</small>
+                <strong>{{ professor.cidade }}</strong>
+            </div>
+
+            <div class="col-md-6">
+                <small class="text-muted d-block mb-1">Estado</small>
+                <strong>{{ professor.estado }}</strong>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
 {% endblock %}

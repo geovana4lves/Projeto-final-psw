@@ -1,0 +1,630 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Sistema de Gestão Acadêmica"
+    >
+
+    <title>
+        {% block title %}
+            Sistema Acadêmico
+        {% endblock %}
+    </title>
+
+
+    <!-- Bootstrap AdminHMD -->
+    <link
+        rel="stylesheet"
+        href="{% static 'adminhmd/assets/css/bootstrap.min.css' %}"
+    >
+
+
+    <!-- Bootstrap Icons -->
+    <link
+        rel="stylesheet"
+        href="{% static 'adminhmd/assets/vendors/bootstrap-icons/bootstrap-icons.css' %}"
+    >
+
+
+    <!-- CSS AdminHMD -->
+    <link
+        rel="stylesheet"
+        href="{% static 'adminhmd/assets/css/style.css' %}"
+    >
+
+
+    {% block extra_css %}
+    {% endblock %}
+
+</head>
+
+
+<body>
+
+
+<div class="admin-shell">
+
+
+    <!-- FUNDO MOBILE -->
+    <div
+        class="sidebar-backdrop"
+        data-sidebar-close
+    ></div>
+
+
+    <!-- SIDEBAR -->
+    <aside
+        class="admin-sidebar"
+        id="adminSidebar"
+        aria-label="Navegação principal"
+    >
+
+
+        <!-- LOGO -->
+        <div class="sidebar-header">
+
+            <a
+                class="brand-mark"
+                href="{% url 'painel' %}"
+            >
+
+                <span class="brand-icon">
+
+                    <i class="bi bi-mortarboard-fill"></i>
+
+                </span>
+
+
+                <span class="brand-copy">
+
+                    <span class="brand-title">
+                        SGA
+                    </span>
+
+                    <span class="brand-subtitle">
+                        Sistema Acadêmico
+                    </span>
+
+                </span>
+
+            </a>
+
+        </div>
+
+
+        <!-- MENU -->
+        <nav class="sidebar-nav">
+
+
+            <!-- PAINEL -->
+            <a
+                class="nav-link
+                {% if request.resolver_match.url_name == 'painel' %}
+                    active
+                {% endif %}"
+                href="{% url 'painel' %}"
+            >
+
+                <span class="nav-icon">
+                    <i class="bi bi-speedometer2"></i>
+                </span>
+
+                <span class="nav-text">
+                    Painel
+                </span>
+
+            </a>
+
+
+
+            <!-- CURSOS -->
+            {% if perms.curso.view_curso %}
+
+                <a
+                    class="nav-link
+                    {% if request.resolver_match.url_name == 'listar_cursos' or request.resolver_match.url_name == 'criar_curso' or request.resolver_match.url_name == 'editar_curso' or request.resolver_match.url_name == 'detalhes_curso' or request.resolver_match.url_name == 'deletar_curso' %}
+                        active
+                    {% endif %}"
+                    href="{% url 'listar_cursos' %}"
+                >
+
+                    <span class="nav-icon">
+                        <i class="bi bi-journal-bookmark"></i>
+                    </span>
+
+                    <span class="nav-text">
+                        Cursos
+                    </span>
+
+                </a>
+
+            {% endif %}
+
+
+
+            <!-- PESSOAS -->
+            {% if perms.pessoa.view_pessoa %}
+
+                <a
+                    class="nav-link"
+                    href="{% url 'listar_pessoas' %}"
+                >
+
+                    <span class="nav-icon">
+                        <i class="bi bi-people"></i>
+                    </span>
+
+                    <span class="nav-text">
+                        Pessoas
+                    </span>
+
+                </a>
+
+            {% endif %}
+
+
+
+            <!-- PROFESSORES -->
+            {% if perms.professor.view_professor %}
+
+                <a
+                    class="nav-link"
+                    href="{% url 'listar_professores' %}"
+                >
+
+                    <span class="nav-icon">
+                        <i class="bi bi-person-workspace"></i>
+                    </span>
+
+                    <span class="nav-text">
+                        Professores
+                    </span>
+
+                </a>
+
+            {% endif %}
+
+
+
+            <!-- TURMAS -->
+            {% if perms.turma.view_turma %}
+
+                <a
+                    class="nav-link"
+                    href="{% url 'listar_turmas' %}"
+                >
+
+                    <span class="nav-icon">
+                        <i class="bi bi-collection"></i>
+                    </span>
+
+                    <span class="nav-text">
+                        Turmas
+                    </span>
+
+                </a>
+
+            {% endif %}
+
+
+
+            <!-- DISCIPLINAS -->
+            {% if perms.disciplina.view_disciplina %}
+
+                <a
+                    class="nav-link"
+                    href="{% url 'listar_disciplinas' %}"
+                >
+
+                    <span class="nav-icon">
+                        <i class="bi bi-book"></i>
+                    </span>
+
+                    <span class="nav-text">
+                        Disciplinas
+                    </span>
+
+                </a>
+
+            {% endif %}
+
+
+
+            <!-- MATRÍCULAS -->
+            {% if perms.matricula.view_matricula %}
+
+                <a
+                    class="nav-link"
+                    href="{% url 'listar_matriculas' %}"
+                >
+
+                    <span class="nav-icon">
+                        <i class="bi bi-person-check"></i>
+                    </span>
+
+                    <span class="nav-text">
+                        Matrículas
+                    </span>
+
+                </a>
+
+            {% endif %}
+
+
+        </nav>
+
+
+        <!-- USUÁRIO -->
+        <div class="sidebar-user">
+
+            <span
+                class="avatar-img avatar-md
+                       sidebar-user-avatar
+                       d-flex
+                       align-items-center
+                       justify-content-center"
+            >
+
+                <i class="bi bi-person-fill"></i>
+
+            </span>
+
+
+            <strong>
+
+                {% if request.user.nome %}
+
+                    {{ request.user.nome }}
+
+                {% else %}
+
+                    {{ request.user.username }}
+
+                {% endif %}
+
+            </strong>
+
+
+            <small>
+
+                {% if request.user.is_superuser %}
+
+                    Superusuário
+
+                {% elif request.user.is_staff %}
+
+                    Usuário administrativo
+
+                {% else %}
+
+                    Usuário do sistema
+
+                {% endif %}
+
+            </small>
+
+        </div>
+
+
+        <!-- RODAPÉ SIDEBAR -->
+        <div class="sidebar-footer">
+
+            <span class="status-dot"></span>
+
+            <span class="sidebar-footer-text">
+                Sistema disponível
+            </span>
+
+        </div>
+
+
+    </aside>
+
+
+
+    <!-- ÁREA PRINCIPAL -->
+    <div class="admin-main">
+
+
+        <!-- NAVBAR -->
+        <nav
+            class="navbar admin-navbar navbar-expand bg-white"
+        >
+
+            <div class="container-fluid px-3 px-lg-4">
+
+
+                <!-- BOTÃO SIDEBAR -->
+                <button
+                    class="sidebar-toggle"
+                    type="button"
+                    data-sidebar-toggle
+                    aria-controls="adminSidebar"
+                    aria-expanded="true"
+                    aria-label="Abrir ou fechar menu"
+                >
+
+                    <span></span>
+                    <span></span>
+                    <span></span>
+
+                </button>
+
+
+                <!-- SISTEMA -->
+                <div class="ms-3">
+
+                    <span class="fw-semibold">
+                        Sistema de Gestão Acadêmica
+                    </span>
+
+                </div>
+
+
+                <!-- LADO DIREITO -->
+                <div class="navbar-actions ms-auto">
+
+
+                    <!-- TEMA -->
+                    <button
+                        class="icon-button theme-toggle"
+                        type="button"
+                        data-theme-toggle
+                        aria-label="Alterar tema"
+                        title="Alterar tema"
+                    >
+
+                        <i
+                            class="bi bi-moon-stars"
+                            data-theme-icon
+                        ></i>
+
+                    </button>
+
+
+                    <!-- USUÁRIO -->
+                    <div class="dropdown">
+
+                        <button
+                            class="profile-button dropdown-toggle"
+                            type="button"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                        >
+
+                            <span
+                                class="avatar-img avatar-sm
+                                       d-inline-flex
+                                       align-items-center
+                                       justify-content-center"
+                            >
+
+                                <i class="bi bi-person-fill"></i>
+
+                            </span>
+
+
+                            <span
+                                class="profile-name d-none d-sm-inline"
+                            >
+
+                                {% if request.user.nome %}
+
+                                    {{ request.user.nome }}
+
+                                {% else %}
+
+                                    {{ request.user.username }}
+
+                                {% endif %}
+
+                            </span>
+
+                        </button>
+
+
+                        <ul class="dropdown-menu dropdown-menu-end">
+
+
+                            <li>
+
+                                <span class="dropdown-item-text">
+
+                                    <strong>
+                                        {{ request.user.username }}
+                                    </strong>
+
+                                    {% if request.user.email %}
+
+                                        <br>
+
+                                        <small class="text-muted">
+                                            {{ request.user.email }}
+                                        </small>
+
+                                    {% endif %}
+
+                                </span>
+
+                            </li>
+
+
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+
+
+                            <!-- HOME -->
+                            <li>
+
+                                <a
+                                    href="{% url 'home' %}"
+                                    class="dropdown-item"
+                                >
+
+                                    <i class="bi bi-house-door me-2"></i>
+
+                                    Página inicial
+
+                                </a>
+
+                            </li>
+
+
+                            <!-- LOGOUT -->
+                            <li>
+
+                                <form
+                                    method="POST"
+                                    action="{% url 'logout' %}"
+                                >
+
+                                    {% csrf_token %}
+
+                                    <button
+                                        type="submit"
+                                        class="dropdown-item"
+                                    >
+
+                                        <i class="bi bi-box-arrow-right me-2"></i>
+
+                                        Sair
+
+                                    </button>
+
+                                </form>
+
+                            </li>
+
+
+                        </ul>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </nav>
+
+
+
+        <!-- CONTEÚDO -->
+        <main class="dashboard-content">
+
+            <div class="container-fluid px-3 px-lg-4 py-4">
+
+
+                <!-- MENSAGENS DJANGO -->
+                {% if messages %}
+
+                    {% for message in messages %}
+
+                        <div
+                            class="
+                                alert
+
+                                {% if message.tags == 'error' %}
+                                    alert-danger
+                                {% elif message.tags == 'success' %}
+                                    alert-success
+                                {% elif message.tags == 'warning' %}
+                                    alert-warning
+                                {% elif message.tags == 'info' %}
+                                    alert-info
+                                {% else %}
+                                    alert-primary
+                                {% endif %}
+
+                                alert-dismissible
+                                fade
+                                show
+                            "
+                            role="alert"
+                        >
+
+                            {{ message }}
+
+
+                            <button
+                                type="button"
+                                class="btn-close"
+                                data-bs-dismiss="alert"
+                                aria-label="Fechar"
+                            ></button>
+
+                        </div>
+
+                    {% endfor %}
+
+                {% endif %}
+
+
+
+                {% block content %}
+                {% endblock %}
+
+
+            </div>
+
+        </main>
+
+
+
+        <!-- RODAPÉ -->
+        <footer class="admin-footer">
+
+            <div class="container-fluid px-3 px-lg-4">
+
+                <span>
+                    © 2026 Sistema Acadêmico
+                </span>
+
+                <span>
+                    AdminHMD • ThemeWagon
+                </span>
+
+            </div>
+
+        </footer>
+
+
+    </div>
+
+
+</div>
+
+
+
+<!-- Bootstrap -->
+<script
+    src="{% static 'adminhmd/assets/js/bootstrap.bundle.min.js' %}"
+></script>
+
+
+<!-- AdminHMD -->
+<script
+    src="{% static 'adminhmd/assets/js/main.js' %}"
+></script>
+
+
+{% block extra_js %}
+{% endblock %}
+
+
+</body>
+
+</html>

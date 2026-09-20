@@ -1,5 +1,7 @@
 from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
+
 from .models import Pessoa
 from .forms import PessoaForm
 
@@ -11,16 +13,32 @@ def listar_pessoas(request):
     return render(request, 'pessoa/listar.html', {'pessoas': pessoas})
 
 def criar_pessoa(request):
+
     if request.method == 'POST':
+
         form = PessoaForm(request.POST)
 
         if form.is_valid():
+
             form.save()
-            return redirect('listar_pessoas')
+
+            messages.success(
+                request,
+                'Conta criada com sucesso! Agora faça login para acessar o sistema.'
+            )
+
+            return redirect('login')
 
     else:
+
         form = PessoaForm()
-    return render(request, 'pessoa/criar.html', {'form': form})
+
+
+    return render(
+        request,
+        'pessoa/criar.html',
+        {'form': form}
+    )
 
 @login_required
 @permission_required('pessoa.change_pessoa', raise_exception=True)

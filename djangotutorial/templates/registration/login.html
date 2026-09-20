@@ -1,32 +1,294 @@
-{% extends "base.html" %}
-{% block title %}Entrar - Sistema Acadêmico{% endblock %}
+{% extends "base_public.html" %}
 
-{# Na tela de login não precisamos da barra "Entrar | Cadastrar-se" #}
-{% block auth_bar %}{% endblock %}
+{% load static %}
+
+
+{% block title %}
+Entrar - Sistema Acadêmico
+{% endblock %}
+
+
+{% block extra_css %}
+
+<style>
+
+    .login-section {
+        min-height: 75vh;
+        display: flex;
+        align-items: center;
+        padding: 80px 0;
+        background: #f8f9fa;
+    }
+
+
+    .login-card {
+        background: #ffffff;
+        border-radius: 20px;
+        padding: 45px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    }
+
+
+    .login-card h2 {
+        font-family: "Jost", sans-serif;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+
+    .login-card .login-subtitle {
+        color: #777;
+        margin-bottom: 30px;
+    }
+
+
+    .login-card label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 8px;
+    }
+
+
+    .login-card input[type="text"],
+    .login-card input[type="password"] {
+        width: 100%;
+        padding: 13px 15px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        outline: none;
+        transition: 0.3s;
+    }
+
+
+    .login-card input[type="text"]:focus,
+    .login-card input[type="password"]:focus {
+        border-color: #2eca7f;
+        box-shadow: 0 0 0 3px rgba(46, 202, 127, 0.10);
+    }
+
+
+    .login-button {
+        width: 100%;
+        border: none;
+        cursor: pointer;
+    }
+
+
+    .login-image {
+        text-align: center;
+        padding: 30px;
+    }
+
+
+    .login-image img {
+        max-width: 90%;
+    }
+
+
+    .login-error {
+        background: #f8d7da;
+        color: #842029;
+        padding: 12px 15px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+    }
+
+
+    .login-register {
+        margin-top: 25px;
+        text-align: center;
+    }
+
+
+    .login-register a {
+        color: #2eca7f;
+        font-weight: 600;
+        text-decoration: none;
+    }
+
+
+    .login-register a:hover {
+        text-decoration: underline;
+    }
+
+</style>
+
+{% endblock %}
+
 
 {% block content %}
-    <h1>Entrar</h1>
-    <form method="POST" action="{% url 'login' %}">
-        {% csrf_token %}
 
-        {% if form.errors %}
-            <p style="color: red;">Usuário ou senha incorretos.</p>
-        {% endif %}
 
-        {# Guarda para onde o usuário queria ir antes de ser mandado ao login #}
-        <input type="hidden" name="next" value="{{ next }}">
+<section class="login-section">
 
-        <p>
-            <label for="{{ form.username.id_for_label }}">Usuário:</label>
-            {{ form.username }}
-        </p>
-        <p>
-            <label for="{{ form.password.id_for_label }}">Senha:</label>
-            {{ form.password }}
-        </p>
+    <div class="container">
 
-        <button type="submit">Entrar</button>
-    </form>
+        <div class="row align-items-center justify-content-center">
 
-    <p>Ainda não tem conta? <a href="{% url 'criar_pessoa' %}">Cadastre-se</a></p>
+
+            <!-- IMAGEM -->
+            <div class="col-lg-6 d-none d-lg-block">
+
+                <div class="login-image">
+
+                    <img
+                        src="{% static 'eduleb/assets/img/about1.png' %}"
+                        alt="Sistema Acadêmico"
+                        class="img-fluid"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- FORMULÁRIO -->
+            <div class="col-lg-5 col-md-8 col-sm-12">
+
+                <div class="login-card">
+
+
+                    <h2>
+                        Acesse sua conta
+                    </h2>
+
+
+                    <p class="login-subtitle">
+
+                        Entre com seu usuário e senha para acessar
+                        o Sistema de Gestão Acadêmica.
+
+                    </p>
+
+
+                    {% if form.errors %}
+
+                        <div class="login-error">
+
+                            Usuário ou senha incorretos.
+                            Verifique os dados e tente novamente.
+
+                        </div>
+
+                    {% endif %}
+
+
+                    {% if next %}
+
+                        {% if request.user.is_authenticated %}
+
+                            <div class="alert alert-warning">
+
+                                Sua conta não possui permissão
+                                para acessar esta página.
+
+                            </div>
+
+                        {% endif %}
+
+                    {% endif %}
+
+
+                    <form
+                        method="POST"
+                        action="{% url 'login' %}"
+                    >
+
+                        {% csrf_token %}
+
+
+                        <!-- USUÁRIO -->
+                        <div>
+
+                            <label for="{{ form.username.id_for_label }}">
+                                Usuário
+                            </label>
+
+                            {{ form.username }}
+
+                        </div>
+
+
+                        <!-- SENHA -->
+                        <div>
+
+                            <label for="{{ form.password.id_for_label }}">
+                                Senha
+                            </label>
+
+                            {{ form.password }}
+
+                        </div>
+
+
+                        <!-- DEFINE PARA ONDE O USUÁRIO VAI APÓS O LOGIN -->
+{% if next %}
+
+    <input
+        type="hidden"
+        name="next"
+        value="{{ next }}"
+    >
+
+{% else %}
+
+    <input
+        type="hidden"
+        name="next"
+        value="{% url 'painel' %}"
+    >
+
+{% endif %}
+
+
+                        <button
+                            type="submit"
+                            class="btn_one login-button"
+                        >
+                            Entrar
+                        </button>
+
+                    </form>
+
+
+                    <div class="login-register">
+
+                        <p>
+
+                            Ainda não possui uma conta?
+
+                            <a href="{% url 'criar_pessoa' %}">
+                                Cadastre-se
+                            </a>
+
+                        </p>
+
+                    </div>
+
+
+                    <div class="text-center mt-3">
+
+                        <a
+                            href="{% url 'home' %}"
+                            class="text-muted"
+                        >
+                            ← Voltar para a página inicial
+                        </a>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
 {% endblock %}

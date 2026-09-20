@@ -1,11 +1,214 @@
-{% extends "base.html" %}
-{% block title %}Formulário de Aluno{% endblock %}
+{% extends "base_public.html" %}
+
+{% block title %}
+Criar conta - Sistema Acadêmico
+{% endblock %}
+
+
+{% block extra_css %}
+
+<style>
+
+    .register-section {
+        padding: 80px 0;
+        background: #f8f9fa;
+    }
+
+    .register-card {
+        max-width: 900px;
+        margin: 0 auto;
+        background: #ffffff;
+        border-radius: 20px;
+        padding: 45px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    }
+
+    .register-card h2 {
+        font-family: "Jost", sans-serif;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
+    .register-subtitle {
+        color: #777;
+        margin-bottom: 35px;
+    }
+
+    .register-card label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 7px;
+    }
+
+    .register-card input,
+    .register-card select,
+    .register-card textarea {
+        width: 100%;
+        padding: 12px 14px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        outline: none;
+        margin-bottom: 5px;
+    }
+
+    .register-card input:focus,
+    .register-card select:focus,
+    .register-card textarea:focus {
+        border-color: #2eca7f;
+        box-shadow: 0 0 0 3px rgba(46, 202, 127, 0.10);
+    }
+
+    .register-field {
+        margin-bottom: 20px;
+    }
+
+    .register-help {
+        display: block;
+        color: #777;
+        font-size: 13px;
+        margin-top: 5px;
+    }
+
+    .register-error {
+        display: block;
+        color: #dc3545;
+        font-size: 13px;
+        margin-top: 5px;
+    }
+
+    .register-actions {
+        margin-top: 30px;
+        display: flex;
+        gap: 15px;
+        align-items: center;
+    }
+
+</style>
+
+{% endblock %}
+
+
 {% block content %}
-    <h1>{% if pessoa %}Editar Aluno(a): {{ pessoa.nome }}{% else %}Criar Aluno(a){% endif %}</h1>
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Salvar</button>
-        <a href="{% url 'listar_pessoas' %}">Cancelar</a>
-    </form>
+
+<section class="register-section">
+
+    <div class="container">
+
+        <div class="register-card">
+
+            <div class="text-center mb-4">
+
+                <h2>
+                    Crie sua conta
+                </h2>
+
+                <p class="register-subtitle">
+                    Preencha seus dados para acessar o
+                    Sistema de Gestão Acadêmica.
+                </p>
+
+            </div>
+
+
+            {% if form.non_field_errors %}
+
+                <div class="alert alert-danger">
+
+                    {% for error in form.non_field_errors %}
+                        <p class="mb-0">
+                            {{ error }}
+                        </p>
+                    {% endfor %}
+
+                </div>
+
+            {% endif %}
+
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+
+                <div class="row">
+
+                    {% for field in form %}
+
+                        <div class="col-md-6">
+
+                            <div class="register-field">
+
+                                <label for="{{ field.id_for_label }}">
+                                    {{ field.label }}
+                                </label>
+
+                                {{ field }}
+
+
+                                {% if field.help_text %}
+
+                                    <small class="register-help">
+                                        {{ field.help_text|safe }}
+                                    </small>
+
+                                {% endif %}
+
+
+                                {% for error in field.errors %}
+
+                                    <small class="register-error">
+                                        {{ error }}
+                                    </small>
+
+                                {% endfor %}
+
+                            </div>
+
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+
+                <div class="register-actions">
+
+                    <button
+                        type="submit"
+                        class="btn_one"
+                        style="border: none;"
+                    >
+                        Criar conta
+                    </button>
+
+
+                    <a
+                        href="{% url 'login' %}"
+                        class="header-btn"
+                    >
+                        Já tenho uma conta
+                    </a>
+
+                </div>
+
+            </form>
+
+
+            <div class="text-center mt-4">
+
+                <a
+                    href="{% url 'home' %}"
+                    class="text-muted"
+                >
+                    ← Voltar para a página inicial
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
 {% endblock %}

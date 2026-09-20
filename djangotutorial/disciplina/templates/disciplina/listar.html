@@ -1,42 +1,128 @@
-{% extends "base.html" %}
-{% block title %}Lista de Disciplinas{% endblock %}
+{% extends "base_admin.html" %}
+
+{% block title %}Disciplinas - Sistema Acadêmico{% endblock %}
+
 {% block content %}
-    <h1>Lista de Disciplinas</h1>
-    <a href="{% url 'home' %}">Voltar</a>        
+
+<div class="d-flex flex-column flex-md-row justify-content-between
+            align-items-md-center gap-3 mb-4">
+
+    <div>
+        <p class="text-muted mb-1">Gestão acadêmica</p>
+        <h1 class="h3 mb-1">Disciplinas</h1>
+        <p class="text-muted mb-0">
+            Consulte disciplinas, professores e turmas.
+        </p>
+    </div>
+
     {% if perms.disciplina.add_disciplina %}
-        <a href="{% url 'criar_disciplina' %}">Adicionar Nova Disciplina</a>
+        <a href="{% url 'criar_disciplina' %}"
+           class="btn btn-primary">
+            <i class="bi bi-plus-lg me-1"></i>
+            Nova disciplina
+        </a>
     {% endif %}
-    <br><br>
-    <table border="1" cellpadding="8" cellspacing="0">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Professor</th>
-                <th>Turma</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for disciplina in disciplinas %}
-            <tr>
-                <td>{{ disciplina.id }}</td>
-                <td>{{ disciplina.nome }}</td>
-                <td>{{ disciplina.professor.nome }}</td>
-                <td>{{ disciplina.turma.nome }}</td>
-                <td>
-                    <a href="{% url 'detalhes_disciplina' disciplina.id %}">Ver</a>
-                    {% if perms.disciplina.change_disciplina %}
-                    <a href="{% url 'editar_disciplina' disciplina.id %}">Editar</a>
-                    {% endif %}
-                    {% if perms.disciplina.delete_disciplina %}
-                    <a href="{% url 'deletar_disciplina' disciplina.id %}">Excluir</a>
-                    {% endif %}
-                </td>
-            </tr>
-            {% empty %}
-            <tr><td colspan="5">Nenhuma disciplina cadastrada.</td></tr>
-            {% endfor %}
-        </tbody>
-    </table>
+
+</div>
+
+<div class="card shadow-sm">
+
+    <div class="card-header bg-white py-3">
+        <i class="bi bi-book text-primary me-2"></i>
+        <strong>Disciplinas cadastradas</strong>
+    </div>
+
+    <div class="card-body p-0">
+
+        {% if disciplinas %}
+
+            <div class="table-responsive">
+
+                <table class="table table-hover align-middle mb-0">
+
+                    <thead>
+                        <tr>
+                            <th class="ps-4">Disciplina</th>
+                            <th>Carga horária</th>
+                            <th>Professor</th>
+                            <th>Turma</th>
+                            <th class="text-end pe-4">Ações</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        {% for disciplina in disciplinas %}
+
+                            <tr>
+
+                                <td class="ps-4">
+                                    <strong>{{ disciplina.nome }}</strong>
+                                </td>
+
+                                <td>{{ disciplina.carga_horaria }} h</td>
+
+                                <td>{{ disciplina.professor.nome }}</td>
+
+                                <td>{{ disciplina.turma.nome }}</td>
+
+                                <td class="text-end pe-4">
+
+                                    <div class="d-flex justify-content-end gap-1">
+
+                                        <a
+                                            href="{% url 'detalhes_disciplina' disciplina.id %}"
+                                            class="btn btn-sm btn-outline-primary"
+                                        >
+                                            <i class="bi bi-eye"></i>
+                                        </a>
+
+                                        {% if perms.disciplina.change_disciplina %}
+                                            <a
+                                                href="{% url 'editar_disciplina' disciplina.id %}"
+                                                class="btn btn-sm btn-outline-secondary"
+                                            >
+                                                <i class="bi bi-pencil"></i>
+                                            </a>
+                                        {% endif %}
+
+                                        {% if perms.disciplina.delete_disciplina %}
+                                            <a
+                                                href="{% url 'deletar_disciplina' disciplina.id %}"
+                                                class="btn btn-sm btn-outline-danger"
+                                            >
+                                                <i class="bi bi-trash"></i>
+                                            </a>
+                                        {% endif %}
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        {% else %}
+
+            <div class="text-center py-5">
+                <div class="fs-1 text-muted mb-3">
+                    <i class="bi bi-book"></i>
+                </div>
+                <h5>Nenhuma disciplina cadastrada</h5>
+                <p class="text-muted">Ainda não existem disciplinas registradas.</p>
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
 {% endblock %}
