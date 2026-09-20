@@ -1,4 +1,4 @@
-# SGA — Sistema de Gestão Acadêmica
+# SEGA — Sistema de Gestão Acadêmica
 
 Sistema web desenvolvido com Django para gerenciamento de informações acadêmicas, permitindo o controle de cursos, pessoas, professores, turmas, disciplinas e matrículas.
 
