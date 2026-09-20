@@ -328,4 +328,8 @@ Projeto funcional com:
 Interfaces adaptadas a partir dos templates gratuitos disponibilizados pelo **ThemeWagon**:
 
 - Edulab / Eduleb;
+<<<<<<< HEAD
 - AdminHMD.
+=======
+- AdminHMD.
+>>>>>>> 045a6122745638e89f0106d13a2d9db06248ef7f
