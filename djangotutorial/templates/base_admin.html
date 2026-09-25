@@ -19,9 +19,13 @@
 
     <title>
         {% block title %}
-            Sistema Acadêmico
+            SEGA — Sistema de Gestão Acadêmica
         {% endblock %}
     </title>
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'sega/assets/images/sega-favicon-32.png' %}">
+    <link rel="icon" type="image/png" sizes="64x64" href="{% static 'sega/assets/images/sega-favicon-64.png' %}">
 
 
     <!-- Bootstrap AdminHMD -->
@@ -45,10 +49,16 @@
     >
 
 
-    <!-- CSS personalizado dos formulários do SGA -->
+    <!-- CSS personalizado dos formulários do SEGA -->
     <link
         rel="stylesheet"
-        href="{% static 'adminhmd/assets/css/sga-forms.css' %}"
+        href="{% static 'sega/assets/css/sega-forms.css' %}"
+    >
+
+    <!-- Identidade visual SEGA -->
+    <link
+        rel="stylesheet"
+        href="{% static 'sega/assets/css/sega-admin.css' %}"
     >
 
 
@@ -89,7 +99,11 @@
 
                 <span class="brand-icon">
 
-                    <i class="bi bi-mortarboard-fill"></i>
+                    <img
+                        src="{% static 'sega/assets/images/sega-icon.png' %}"
+                        alt=""
+                        aria-hidden="true"
+                    >
 
                 </span>
 
@@ -97,11 +111,11 @@
                 <span class="brand-copy">
 
                     <span class="brand-title">
-                        SGA
+                        SEGA
                     </span>
 
                     <span class="brand-subtitle">
-                        Sistema Acadêmico
+                        Gestão Acadêmica
                     </span>
 
                 </span>
@@ -165,7 +179,10 @@
             {% if perms.pessoa.view_pessoa %}
 
                 <a
-                    class="nav-link"
+                    class="nav-link
+                    {% if request.resolver_match.url_name == 'listar_pessoas' or request.resolver_match.url_name == 'criar_pessoa' or request.resolver_match.url_name == 'editar_pessoa' or request.resolver_match.url_name == 'detalhes_pessoa' or request.resolver_match.url_name == 'deletar_pessoa' %}
+                        active
+                    {% endif %}"
                     href="{% url 'listar_pessoas' %}"
                 >
 
@@ -187,7 +204,10 @@
             {% if perms.professor.view_professor %}
 
                 <a
-                    class="nav-link"
+                    class="nav-link
+                    {% if request.resolver_match.url_name == 'listar_professores' or request.resolver_match.url_name == 'criar_professor' or request.resolver_match.url_name == 'editar_professor' or request.resolver_match.url_name == 'detalhes_professor' or request.resolver_match.url_name == 'deletar_professor' %}
+                        active
+                    {% endif %}"
                     href="{% url 'listar_professores' %}"
                 >
 
@@ -209,7 +229,10 @@
             {% if perms.turma.view_turma %}
 
                 <a
-                    class="nav-link"
+                    class="nav-link
+                    {% if request.resolver_match.url_name == 'listar_turmas' or request.resolver_match.url_name == 'criar_turma' or request.resolver_match.url_name == 'editar_turma' or request.resolver_match.url_name == 'detalhes_turma' or request.resolver_match.url_name == 'deletar_turma' %}
+                        active
+                    {% endif %}"
                     href="{% url 'listar_turmas' %}"
                 >
 
@@ -231,7 +254,10 @@
             {% if perms.disciplina.view_disciplina %}
 
                 <a
-                    class="nav-link"
+                    class="nav-link
+                    {% if request.resolver_match.url_name == 'listar_disciplinas' or request.resolver_match.url_name == 'criar_disciplina' or request.resolver_match.url_name == 'editar_disciplina' or request.resolver_match.url_name == 'detalhes_disciplina' or request.resolver_match.url_name == 'deletar_disciplina' %}
+                        active
+                    {% endif %}"
                     href="{% url 'listar_disciplinas' %}"
                 >
 
@@ -253,7 +279,10 @@
             {% if perms.matricula.view_matricula %}
 
                 <a
-                    class="nav-link"
+                    class="nav-link
+                    {% if request.resolver_match.url_name == 'listar_matriculas' or request.resolver_match.url_name == 'criar_matricula' or request.resolver_match.url_name == 'editar_matricula' or request.resolver_match.url_name == 'detalhes_matricula' or request.resolver_match.url_name == 'deletar_matricula' %}
+                        active
+                    {% endif %}"
                     href="{% url 'listar_matriculas' %}"
                 >
 
@@ -373,8 +402,8 @@
                 <!-- SISTEMA -->
                 <div class="ms-3">
 
-                    <span class="fw-semibold">
-                        Sistema de Gestão Acadêmica
+                    <span class="admin-system-name">
+                        <strong>SEGA</strong> · Sistema de Gestão Acadêmica
                     </span>
 
                 </div>
@@ -596,8 +625,8 @@
 
             <div class="container-fluid px-3 px-lg-4">
 
-                <span>
-                    © 2026 Sistema Acadêmico
+                <span class="sega-footer-mark">
+                    © 2026 SEGA — Sistema de Gestão Acadêmica
                 </span>
 
                 <span>
@@ -628,9 +657,9 @@
 ></script>
 
 
-<!-- Formulários SGA -->
+<!-- Formulários SEGA -->
 <script
-    src="{% static 'adminhmd/assets/js/sga-forms.js' %}"
+    src="{% static 'sega/assets/js/sega-forms.js' %}"
 ></script>
 
 

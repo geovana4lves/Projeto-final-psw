@@ -4,7 +4,7 @@
 
 
 {% block title %}
-Sistema Acadêmico
+SEGA — Sistema de Gestão Acadêmica
 {% endblock %}
 
 
@@ -15,15 +15,7 @@ Sistema Acadêmico
 <!-- APRESENTAÇÃO PRINCIPAL / HERO              -->
 <!-- ========================================= -->
 
-<section
-    class="home_bg hb_height"
-    style="
-        background-image:
-        url('{% static "eduleb/assets/img/bg/home-bg.jpg" %}');
-        background-size: cover;
-        background-position: center center;
-    "
->
+<section class="home_bg hb_height">
 
     <div class="container">
 
@@ -38,19 +30,19 @@ Sistema Acadêmico
                     <h1>
 
                         <span>
-                            Gestão Acadêmica
+                            SEGA
                         </span>
 
-                        simples, organizada e acessível
+                        — gestão acadêmica simples, organizada e acessível
 
                     </h1>
 
 
                     <p>
 
-                        Um ambiente desenvolvido para centralizar
+                        O Sistema de Gestão Acadêmica centraliza
                         cursos, turmas, disciplinas, professores
-                        e matrículas em um único sistema.
+                        e matrículas em um ambiente único e organizado.
 
                     </p>
 
@@ -69,6 +61,13 @@ Sistema Acadêmico
                             </strong>.
 
                         </p>
+
+                        <a
+                            href="{% url 'painel' %}"
+                            class="btn_one"
+                        >
+                            Ir para o painel
+                        </a>
 
                     {% else %}
 
@@ -102,7 +101,7 @@ Sistema Acadêmico
                     <img
                         src="{% static 'eduleb/assets/img/home-img2.png' %}"
                         class="img-fluid"
-                        alt="Sistema Acadêmico"
+                        alt="SEGA — Sistema de Gestão Acadêmica"
                     >
 
                     <div class="home_ps">
@@ -110,11 +109,11 @@ Sistema Acadêmico
                         <span class="ti-book"></span>
 
                         <h2>
-                            SGA
+                            SEGA
                         </h2>
 
                         <p>
-                            Gestão Acadêmica
+                            Sistema de Gestão Acadêmica
                         </p>
 
                     </div>
@@ -139,12 +138,6 @@ Sistema Acadêmico
 <section
     id="recursos"
     class="top_cat__area section-padding"
-    style="
-        background-image:
-        url('{% static "eduleb/assets/img/bg/shape-1.png" %}');
-        background-size: cover;
-        background-position: center center;
-    "
 >
 
     <div class="container">
@@ -158,7 +151,7 @@ Sistema Acadêmico
 
             <p>
 
-                O Sistema de Gestão Acadêmica reúne as principais
+                O SEGA — Sistema de Gestão Acadêmica reúne as principais
                 informações necessárias para acompanhar e organizar
                 a estrutura acadêmica.
 
@@ -362,7 +355,7 @@ Sistema Acadêmico
 
                     <p>
 
-                        O Sistema de Gestão Acadêmica foi desenvolvido
+                        O SEGA — Sistema de Gestão Acadêmica foi desenvolvido
                         para facilitar o gerenciamento das informações
                         de estudantes, professores, cursos, turmas
                         e disciplinas.

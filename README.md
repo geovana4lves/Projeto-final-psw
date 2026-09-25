@@ -6,6 +6,35 @@ O projeto possui uma área pública e uma área administrativa protegida por aut
 
 ---
 
+
+## Identidade visual do SEGA
+
+A interface foi personalizada com a identidade visual **SEGA — Sistema de Gestão Acadêmica**.
+
+Paleta principal extraída da nova marca:
+
+- azul-marinho: `#112A55`;
+- azul: `#0A5DC8`;
+- verde: `#0FA85B`;
+- amarelo: `#F8B109`.
+
+Os arquivos da marca e os estilos de personalização ficam em:
+
+```text
+djangotutorial/static/sega/
+├── assets/css/sega-public.css
+├── assets/css/sega-admin.css
+├── assets/css/sega-forms.css
+├── assets/js/sega-forms.js
+└── assets/images/
+    ├── sega-logo.png
+    ├── sega-icon.png
+    ├── sega-favicon-32.png
+    └── sega-favicon-64.png
+```
+
+---
+
 ## Funcionalidades
 
 ### Área pública
@@ -328,8 +357,4 @@ Projeto funcional com:
 Interfaces adaptadas a partir dos templates gratuitos disponibilizados pelo **ThemeWagon**:
 
 - Edulab / Eduleb;
-<<<<<<< HEAD
 - AdminHMD.
-=======
-- AdminHMD.
->>>>>>> 045a6122745638e89f0106d13a2d9db06248ef7f
