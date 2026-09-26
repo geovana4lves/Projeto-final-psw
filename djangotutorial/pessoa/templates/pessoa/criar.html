@@ -1,7 +1,9 @@
 {% extends "base_public.html" %}
 
+{% load static %}
+
 {% block title %}
-Criar conta - Sistema Acadêmico
+Criar conta | SEGA
 {% endblock %}
 
 
@@ -54,8 +56,8 @@ Criar conta - Sistema Acadêmico
     .register-card input:focus,
     .register-card select:focus,
     .register-card textarea:focus {
-        border-color: #2eca7f;
-        box-shadow: 0 0 0 3px rgba(46, 202, 127, 0.10);
+        border-color: var(--sega-blue);
+        box-shadow: 0 0 0 3px rgba(10, 93, 200, 0.12);
     }
 
     .register-field {
@@ -98,13 +100,19 @@ Criar conta - Sistema Acadêmico
 
             <div class="text-center mb-4">
 
+                <img
+                    src="{% static 'sega/assets/images/sega-logo.png' %}"
+                    alt="SEGA — Sistema de Gestão Acadêmica"
+                    class="sega-form-brand"
+                >
+
                 <h2>
                     Crie sua conta
                 </h2>
 
                 <p class="register-subtitle">
-                    Preencha seus dados para acessar o
-                    Sistema de Gestão Acadêmica.
+                    Preencha seus dados para acessar
+                    o SEGA — Sistema de Gestão Acadêmica.
                 </p>
 
             </div>

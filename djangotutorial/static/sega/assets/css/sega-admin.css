@@ -1,0 +1,269 @@
+/* ==========================================================
+   SEGA — Sistema de Gestão Acadêmica | Área administrativa
+   ========================================================== */
+
+:root {
+    --sega-navy: #112A55;
+    --sega-navy-2: #0A224E;
+    --sega-blue: #0A5DC8;
+    --sega-blue-dark: #084B9F;
+    --sega-blue-soft: #EAF3FF;
+    --sega-green: #0FA85B;
+    --sega-green-dark: #0B8447;
+    --sega-green-soft: #E8F8EF;
+    --sega-yellow: #F8B109;
+    --sega-yellow-dark: #9B6800;
+    --sega-yellow-soft: #FFF6D8;
+
+    --admin-bg: #F3F7FC;
+    --admin-surface: #FFFFFF;
+    --admin-surface-soft: #F7FAFE;
+    --admin-border: #D9E5F2;
+    --admin-text: #20314A;
+    --admin-muted: #67788E;
+    --admin-primary: var(--sega-blue);
+    --admin-primary-dark: var(--sega-blue-dark);
+    --admin-success: var(--sega-green);
+    --admin-warning: var(--sega-yellow-dark);
+    --admin-sidebar: #FFFFFF;
+    --admin-sidebar-soft: #EEF5FD;
+    --admin-ring: 0 0 0 4px rgba(10, 93, 200, 0.13);
+
+    --bs-primary: #0A5DC8;
+    --bs-primary-rgb: 10, 93, 200;
+    --bs-success: #0FA85B;
+    --bs-success-rgb: 15, 168, 91;
+    --bs-warning: #F8B109;
+    --bs-warning-rgb: 248, 177, 9;
+}
+
+html:not([data-theme="dark"]) {
+    --admin-sidebar: #FFFFFF;
+    --admin-sidebar-soft: #EEF5FD;
+    --admin-sidebar-border: #D9E5F2;
+    --admin-sidebar-text: #52647A;
+    --admin-sidebar-text-strong: var(--sega-navy);
+    --admin-sidebar-muted: #77879A;
+    --admin-sidebar-icon-bg: var(--sega-blue-soft);
+    --admin-sidebar-icon: var(--sega-blue);
+    --admin-sidebar-shadow: 18px 0 42px rgba(17, 42, 85, 0.08);
+}
+
+html[data-theme="dark"] {
+    --admin-bg: #091429;
+    --admin-surface: #11203A;
+    --admin-surface-soft: #0D1A30;
+    --admin-border: #263A57;
+    --admin-text: #E8F0FA;
+    --admin-muted: #9FB0C5;
+    --admin-primary: #63A9FF;
+    --admin-primary-dark: #3E91F3;
+    --admin-success: #4BD68D;
+    --admin-warning: #F7C653;
+    --admin-sidebar: #081328;
+    --admin-sidebar-soft: #122746;
+    --admin-ring: 0 0 0 4px rgba(99, 169, 255, 0.18);
+    --admin-sidebar-icon: #7AB9FF;
+}
+
+body {
+    background:
+        radial-gradient(circle at 86% 0%, rgba(10, 93, 200, 0.07), transparent 28%),
+        linear-gradient(180deg, #F8FBFF 0%, var(--admin-bg) 48%, #EEF4FA 100%);
+}
+
+html[data-theme="dark"] body {
+    background:
+        radial-gradient(circle at 86% 0%, rgba(99, 169, 255, 0.09), transparent 28%),
+        linear-gradient(180deg, #0D1B31 0%, var(--admin-bg) 52%, #071022 100%);
+}
+
+/* Marca da sidebar */
+.brand-mark {
+    gap: .72rem;
+}
+
+.brand-icon {
+    width: 46px;
+    height: 46px;
+    padding: 3px;
+    border-radius: 10px;
+    background: transparent;
+    overflow: hidden;
+}
+
+.brand-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.brand-title {
+    color: var(--sega-navy);
+    letter-spacing: .04em;
+    font-size: 1.12rem;
+}
+
+.brand-subtitle {
+    color: #687A91;
+}
+
+html[data-theme="dark"] .brand-title {
+    color: #FFFFFF;
+}
+
+html[data-theme="dark"] .brand-subtitle {
+    color: #A9B9CB;
+}
+
+.sidebar-nav .nav-link:hover,
+.sidebar-nav .nav-link:focus,
+.sidebar-nav .nav-link.active {
+    background: var(--admin-sidebar-soft);
+    color: var(--admin-sidebar-text-strong);
+}
+
+.sidebar-nav .nav-link.active {
+    box-shadow: inset 3px 0 0 var(--sega-blue);
+}
+
+.nav-icon {
+    background: var(--admin-sidebar-icon-bg);
+    color: var(--admin-sidebar-icon);
+}
+
+html[data-theme="dark"] .sidebar-nav .nav-link.active {
+    box-shadow: inset 3px 0 0 #63A9FF;
+}
+
+.sidebar-user-avatar {
+    border-color: var(--sega-green);
+}
+
+.status-dot {
+    background: var(--sega-green);
+}
+
+/* Barra superior */
+.admin-navbar {
+    border-bottom-color: var(--admin-border);
+}
+
+.admin-system-name {
+    color: var(--sega-navy);
+    font-weight: 700;
+}
+
+.admin-system-name strong {
+    color: var(--sega-blue);
+}
+
+html[data-theme="dark"] .admin-system-name {
+    color: #EAF2FF;
+}
+
+html[data-theme="dark"] .admin-system-name strong {
+    color: #78B8FF;
+}
+
+/* Botões e componentes Bootstrap */
+.btn-primary {
+    --bs-btn-bg: var(--sega-blue);
+    --bs-btn-border-color: var(--sega-blue);
+    --bs-btn-hover-bg: var(--sega-blue-dark);
+    --bs-btn-hover-border-color: var(--sega-blue-dark);
+    --bs-btn-active-bg: var(--sega-blue-dark);
+    --bs-btn-active-border-color: var(--sega-blue-dark);
+    --bs-btn-focus-shadow-rgb: 10, 93, 200;
+}
+
+.btn-outline-primary {
+    --bs-btn-color: var(--sega-blue);
+    --bs-btn-border-color: var(--sega-blue);
+    --bs-btn-hover-bg: var(--sega-blue);
+    --bs-btn-hover-border-color: var(--sega-blue);
+    --bs-btn-active-bg: var(--sega-blue-dark);
+    --bs-btn-active-border-color: var(--sega-blue-dark);
+    --bs-btn-focus-shadow-rgb: 10, 93, 200;
+}
+
+.btn-success,
+.btn-outline-success {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: var(--sega-green);
+    --bs-btn-border-color: var(--sega-green);
+    --bs-btn-hover-bg: var(--sega-green-dark);
+    --bs-btn-hover-border-color: var(--sega-green-dark);
+}
+
+.btn-outline-success {
+    --bs-btn-color: var(--sega-green);
+    --bs-btn-bg: transparent;
+}
+
+.text-primary { color: var(--sega-blue) !important; }
+.text-success { color: var(--sega-green-dark) !important; }
+.text-warning { color: var(--sega-yellow-dark) !important; }
+.bg-primary-subtle { background-color: var(--sega-blue-soft) !important; }
+.bg-success-subtle { background-color: var(--sega-green-soft) !important; }
+.bg-warning-subtle { background-color: var(--sega-yellow-soft) !important; }
+
+.page-icon,
+.metric-icon {
+    color: var(--sega-blue);
+    background: var(--sega-blue-soft);
+}
+
+.metric-success .metric-icon {
+    color: var(--sega-green-dark);
+    background: var(--sega-green-soft);
+}
+
+.metric-warning .metric-icon {
+    color: var(--sega-yellow-dark);
+    background: var(--sega-yellow-soft);
+}
+
+.panel,
+.card {
+    border-color: var(--admin-border);
+}
+
+.form-control:focus,
+.form-select:focus,
+.search-input:focus {
+    border-color: #76AEEB;
+    box-shadow: var(--admin-ring);
+}
+
+.progress-bar {
+    background: linear-gradient(90deg, var(--sega-blue), var(--sega-green));
+}
+
+.alert-primary {
+    --bs-alert-color: #073E87;
+    --bs-alert-bg: #E7F1FF;
+    --bs-alert-border-color: #BCD8FA;
+}
+
+/* Rodapé */
+.admin-footer {
+    border-top-color: var(--admin-border);
+}
+
+.admin-footer .sega-footer-mark {
+    color: var(--sega-navy);
+    font-weight: 700;
+}
+
+html[data-theme="dark"] .admin-footer .sega-footer-mark {
+    color: #EAF2FF;
+}
+
+/* Formulários internos */
+.admin-form input:focus,
+.admin-form select:focus,
+.admin-form textarea:focus {
+    border-color: #76AEEB;
+    box-shadow: 0 0 0 .25rem rgba(10, 93, 200, .13);
+}

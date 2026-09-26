@@ -1,0 +1,87 @@
+/* Formulários internos do SEGA — Sistema de Gestão Acadêmica */
+
+.admin-form label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 7px;
+}
+
+.admin-form input:not([type="checkbox"]):not([type="radio"]),
+.admin-form select,
+.admin-form textarea {
+    width: 100%;
+    min-height: 44px;
+    padding: 10px 13px;
+
+    border: 1px solid var(--bs-border-color);
+    border-radius: 8px;
+
+    background-color: var(--bs-body-bg);
+    color: var(--bs-body-color);
+
+    transition:
+        border-color .15s ease-in-out,
+        box-shadow .15s ease-in-out;
+}
+
+.admin-form textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+.admin-form input:focus,
+.admin-form select:focus,
+.admin-form textarea:focus {
+    border-color: var(--sega-blue, #0A5DC8);
+    outline: 0;
+    box-shadow: 0 0 0 .25rem rgba(10, 93, 200, .13);
+}
+
+.admin-form input[type="checkbox"],
+.admin-form input[type="radio"] {
+    width: auto;
+    margin-right: 6px;
+}
+
+.admin-form .form-field {
+    margin-bottom: 22px;
+}
+
+.admin-form .form-help,
+.admin-form .helptext {
+    display: block;
+    margin-top: 6px;
+    font-size: .82rem;
+    color: var(--bs-secondary-color);
+}
+
+.admin-form ul.errorlist {
+    list-style: none;
+    padding: 0;
+    margin: 6px 0 0;
+}
+
+.admin-form ul.errorlist li,
+.admin-form .form-error {
+    color: var(--bs-danger);
+    font-size: .84rem;
+}
+
+.admin-form input:invalid:focus {
+    box-shadow: 0 0 0 .25rem rgba(220, 53, 69, .12);
+}
+
+.admin-form select {
+    cursor: pointer;
+}
+
+.admin-form input:disabled,
+.admin-form select:disabled,
+.admin-form textarea:disabled {
+    opacity: .65;
+    cursor: not-allowed;
+}
+
+.required-marker {
+    color: var(--bs-danger);
+}

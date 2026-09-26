@@ -4,7 +4,7 @@
 
 
 {% block title %}
-Entrar - Sistema Acadêmico
+Entrar | SEGA
 {% endblock %}
 
 
@@ -63,8 +63,8 @@ Entrar - Sistema Acadêmico
 
     .login-card input[type="text"]:focus,
     .login-card input[type="password"]:focus {
-        border-color: #2eca7f;
-        box-shadow: 0 0 0 3px rgba(46, 202, 127, 0.10);
+        border-color: var(--sega-blue);
+        box-shadow: 0 0 0 3px rgba(10, 93, 200, 0.12);
     }
 
 
@@ -102,7 +102,7 @@ Entrar - Sistema Acadêmico
 
 
     .login-register a {
-        color: #2eca7f;
+        color: var(--sega-blue);
         font-weight: 600;
         text-decoration: none;
     }
@@ -133,9 +133,9 @@ Entrar - Sistema Acadêmico
                 <div class="login-image">
 
                     <img
-                        src="{% static 'eduleb/assets/img/about1.png' %}"
-                        alt="Sistema Acadêmico"
-                        class="img-fluid"
+                        src="{% static 'sega/assets/images/sega-logo.png' %}"
+                        alt="SEGA — Sistema de Gestão Acadêmica"
+                        class="img-fluid sega-login-logo"
                     >
 
                 </div>
@@ -157,7 +157,7 @@ Entrar - Sistema Acadêmico
                     <p class="login-subtitle">
 
                         Entre com seu usuário e senha para acessar
-                        o Sistema de Gestão Acadêmica.
+                        o SEGA — Sistema de Gestão Acadêmica.
 
                     </p>
 

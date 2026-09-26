@@ -20,9 +20,13 @@
 
     <title>
         {% block title %}
-            Sistema Acadêmico
+            SEGA — Sistema de Gestão Acadêmica
         {% endblock %}
     </title>
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'sega/assets/images/sega-favicon-32.png' %}">
+    <link rel="icon" type="image/png" sizes="64x64" href="{% static 'sega/assets/images/sega-favicon-64.png' %}">
 
 
     <!-- Bootstrap do Eduleb -->
@@ -100,37 +104,11 @@
         href="{% static 'eduleb/assets/css/style.css' %}"
     >
 
-<style>
-
-    .sga-logo {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        text-decoration: none;
-        color: #1e1e2f;
-        font-size: 20px;
-        font-weight: 700;
-        font-family: "Jost", sans-serif;
-    }
-
-    .sga-logo span {
-        background: #2eca7f;
-        color: white;
-        width: 42px;
-        height: 42px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 10px;
-        font-size: 16px;
-        font-weight: 700;
-    }
-
-    .sga-logo:hover {
-        color: #2eca7f;
-    }
-
-</style>
+    <!-- Identidade visual SEGA -->
+    <link
+        rel="stylesheet"
+        href="{% static 'sega/assets/css/sega-public.css' %}"
+    >
 
     {% block extra_css %}
     {% endblock %}
@@ -159,20 +137,21 @@
         <div class="container-fluid">
 
             <div class="row">
-
-
                 <!-- LOGO -->
-               <div class="site-logo">
+                <div class="site-logo">
 
-    <a
-        href="{% url 'home' %}"
-        class="sga-logo"
-    >
-        <span>SGA</span>
-        Sistema Acadêmico
-    </a>
+                    <a
+                        href="{% url 'home' %}"
+                        class="sega-logo"
+                        aria-label="SEGA — Sistema de Gestão Acadêmica"
+                    >
+                        <img
+                            src="{% static 'sega/assets/images/sega-logo.png' %}"
+                            alt="SEGA — Sistema de Gestão Acadêmica"
+                        >
+                    </a>
 
-</div>
+                </div>
 
                 <!-- MENU PRINCIPAL -->
                 <div class="col-60 d-flex">
@@ -202,7 +181,7 @@
     {% if request.user.is_authenticated %}
 
         <li>
-            <a href="{% url 'home' %}">
+            <a href="{% url 'painel' %}">
                 Minha conta
             </a>
         </li>
@@ -405,12 +384,15 @@
                     <div class="single_footer">
 
                        <a
-    href="{% url 'home' %}"
-    class="sga-logo"
->
-    <span>SGA</span>
-    Sistema Acadêmico
-</a>
+                            href="{% url 'home' %}"
+                            class="sega-logo sega-logo--footer"
+                            aria-label="SEGA — Sistema de Gestão Acadêmica"
+                        >
+                            <img
+                                src="{% static 'sega/assets/images/sega-logo.png' %}"
+                                alt="SEGA — Sistema de Gestão Acadêmica"
+                            >
+                        </a>
                         <p>
                             Sistema de gestão acadêmica para organização
                             de cursos, turmas, disciplinas, professores,
@@ -500,7 +482,7 @@
 
             <p>
 
-                &copy; 2026 Sistema Acadêmico.
+                &copy; 2026 SEGA — Sistema de Gestão Acadêmica.
 
                 Template por
                 <a href="https://bestwpware.com/">
