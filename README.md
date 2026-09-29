@@ -119,6 +119,40 @@ Os cards também respeitam as permissões do usuário autenticado.
 
 ---
 
+## Permissões do sistema
+
+O controle de acesso é feito por meio do sistema de permissões nativo do Django. Cada view é protegida pelos decoradores `@login_required` e `@permission_required`, exigindo a permissão correspondente para acessar aquela aba ou executar aquela ação. Um usuário autenticado, mas sem a permissão necessária, é redirecionado para a página de **403 — Acesso negado**.
+
+### Permissões exigidas por módulo
+
+| Módulo | Listar / Detalhar | Criar | Editar | Excluir |
+|-----|-----|-----|-----|-----|
+| Pessoa | `pessoa.view_pessoa` | *(cadastro público, sem permissão)* | `pessoa.change_pessoa` | `pessoa.delete_pessoa` |
+| Professor | `professor.view_professor` | `professor.add_professor` | `professor.change_professor` | `professor.delete_professor` |
+| Curso | `curso.view_curso` | `curso.add_curso` | `curso.change_curso` | `curso.delete_curso` |
+| Turma | `turma.view_turma` | `turma.add_turma` | `turma.change_turma` | `turma.delete_turma` |
+| Disciplina | `disciplina.view_disciplina` | `disciplina.add_disciplina` | `disciplina.change_disciplina` | `disciplina.delete_disciplina` |
+| Matrícula | `matricula.view_matricula` | `matricula.add_matricula` | `matricula.change_matricula` | `matricula.delete_matricula` |
+
+O cadastro de Pessoa (`criar_pessoa`) é a única exceção: fica aberto ao público, sem exigir permissão, para permitir que novos usuários se cadastrem no sistema.
+
+### Atribuindo permissões
+
+As permissões podem ser atribuídas a cada pessoa individualmente pelo painel administrativo do Django:
+
+1. Acesse `/admin/`;
+2. Abra o cadastro da pessoa em **Pessoas**;
+3. Na seção de permissões do usuário, marque as permissões necessárias (por exemplo, `curso.view_curso` e `curso.add_curso`);
+4. Salve as alterações.
+
+A permissão passa a valer imediatamente, sem a necessidade de a pessoa sair e entrar novamente no sistema.
+
+### Pessoas sem permissão
+
+Uma pessoa recém-cadastrada, sem nenhuma permissão atribuída, consegue fazer login normalmente, mas não visualiza nenhuma aba até que as permissões necessárias sejam concedidas. Ao tentar acessar diretamente uma aba para a qual não tem permissão, o usuário é direcionado à página personalizada de **403 — Acesso negado**.
+
+---
+
 ## Pesquisa
 
 As páginas de listagem possuem pesquisa integrada ao banco de dados.
