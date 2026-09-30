@@ -4,6 +4,8 @@ Sistema web desenvolvido com Django para gerenciamento de informações acadêmi
 
 O projeto possui uma área pública e uma área administrativa protegida por autenticação e permissões de usuário.
 
+Link do vídeo com apresentação: https://youtu.be/_bHxfD0Mxxc 
+
 ## Funcionalidades
 
 ### Área pública
